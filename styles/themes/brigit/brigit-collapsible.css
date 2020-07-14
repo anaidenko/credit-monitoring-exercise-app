@@ -1,0 +1,50 @@
+.theme-brigit .collapsible__open-close-icon {
+  position: relative;
+}
+
+.theme-brigit .collapsible__open-close-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.theme-brigit .collapsible__open-close-icon .plus-minus {
+  display: none;
+  pointer-events: none;
+}
+
+.theme-brigit .collapsible__open-close-icon:before,
+.theme-brigit .collapsible__open-close-icon:after {
+  display: inline-block;
+  content: ' ';
+  position: absolute;
+  transition: transform 0.2s ease-in-out;
+  pointer-events: all;
+  top: 9px;
+  width: 10px;
+  height: 2px;
+  background-color: #B3B3B3;
+}
+
+.theme-brigit .collapsible__open-close-icon:before {
+  top: 10px;
+  right: 8px;
+  transform: rotate(45deg);
+}
+
+.theme-brigit .collapsible__open-close-icon:after {
+  top: 10px;
+  right: 2px;
+  transform: rotate(315deg);
+}
+
+.theme-brigit .collapsible.expanded .collapsible__open-close-icon:before {
+  /*right: 0;*/
+  transform: rotate(135deg);
+}
+
+.theme-brigit .collapsible.expanded .collapsible__open-close-icon:after {
+  /*right: 6px;*/
+  transform: rotate(225deg);
+}

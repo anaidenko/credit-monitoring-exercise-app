@@ -1,0 +1,329 @@
+.notification .collapsible-content {
+  display: none !important;
+}
+
+.notification.expanded .collapsible-content {
+  display: block !important;
+}
+
+.notification .collapsible-content-flex {
+  display: none !important;
+}
+
+.notification.expanded .collapsible-content-flex {
+  display: flex !important;
+}
+
+.notification .open-close-icon {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.notification.expanded .open-close-icon {
+  transform: rotate(90deg);
+}
+
+.notification.lost-wallet .notification-content {
+  display: block;
+}
+
+.notification.expanded.lost-wallet .notification-content {
+  display: flex;
+}
+
+.notification.expanded.lost-wallet .right-panel {
+  padding-top: 30px;
+}
+
+/** Header area **/
+.notification-header {
+  height: 61px;
+  border: 1px solid #d7dee4;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 0 25px;
+  margin-bottom: 24px;
+}
+
+.notification-header .active-text {
+  color: #00cc96;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 42px 0 12px;
+}
+
+.notification-header .active-text.disable,
+.notification-content .active-text.disable {
+  color: #f53758;
+}
+
+.notification-header .subtitle {
+  color: #3e3f42;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.notification-header .print {
+  color: #0052cc;
+  font-size: 14px;
+  margin: 0 21px 0 7px;
+}
+
+/** End of header **/
+
+/** expanded/content area **/
+.notification-content {
+  border: 1px solid #d7dee4;
+  border-radius: 6px;
+  padding: 32px 54px 32px 36px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  position: relative;
+}
+
+.notification-content .left-panel {
+  padding-right: 8%;
+  flex: 1;
+}
+
+.notification-content .right-panel {
+  flex: 0 0 45%;
+}
+
+.notification-content .title-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.restoration-services .notification-content .title-wrapper,
+.lost-wallet .notification-content .title-wrapper {
+  margin-bottom: 12px;
+}
+
+.notification-content .content-title {
+  color: #1665d8;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 16px;
+}
+
+.notification-content .check-icon {
+  margin: 0 14px 0 10px;
+  cursor: pointer;
+}
+
+.notification-content .active-text {
+  color: #00d2a0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.notification-content .description {
+  margin: 12px 0 6px;
+  color: #3e3f42;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.notification-content .detail-text {
+  color: #3e3f42;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.notification-content .blue-text {
+  color: #0052cc;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.notification-content .print-icon {
+  margin-right: 7px;
+}
+
+.notification-content .insurance-card {
+  padding: 16px 36px 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 3px;
+  background-color: #227bff;
+  width: 460px;
+  margin-bottom: 12px;
+}
+
+.notification-content .print {
+  color: #3e3f42;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.notification-content .card-title {
+  color: #ffffff;
+  font-size: 22px;
+  width: 70%;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.notification-content .card-info {
+  color: #ffffff;
+  font-size: 12px;
+}
+
+.notification-content .contact {
+  color: #ffffff;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.notification-content .lists {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.notification-content .list-item {
+  display: flex;
+  align-items: center;
+  flex: 0 0 50%;
+  margin-bottom: 8px;
+}
+
+.notification-content .list-dot {
+  display: flex;
+  align-items: center;
+  flex: 0 0 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #1665d8;
+  margin-right: 14px;
+}
+
+.notification-content .list-text {
+  color: #3e3f42;
+  font-size: 14px;
+}
+
+.notification-content .list-item-without-margin {
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 992px) {
+  .notification-header {
+    padding: 0 16px;
+  }
+
+  .notification-header .active-text {
+    margin: 0 10px;
+  }
+
+  .notification-header .print-more {
+    display: none;
+  }
+
+  .notification-content {
+    flex-direction: column;
+  }
+
+  .notification-content .right-panel {
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .notification-content {
+    width: 100%;
+    margin: 0 auto 30px;
+    padding: 25px;
+  }
+
+  .notification-content .insurance-card {
+    width: 420px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .notification-header .subtitle {
+    font-size: 14px;
+  }
+
+  .notification-header .print {
+    display: none;
+  }
+
+  .notification-header .print-icon {
+    margin: 0 0 0 5px;
+  }
+
+  .notification-content .description {
+    margin-top: 8px;
+  }
+
+  .notification-content .detail-text {
+    margin-bottom: 8px;
+  }
+
+  .notification-content .right-panel {
+    margin-top: 12px;
+  }
+
+  .notification.expanded.lost-wallet .right-panel {
+    padding-top: 0;
+    margin-top: 0;
+  }
+
+  .notification-content .print {
+    margin-bottom: 9px;
+  }
+
+  .notification-content {
+    padding: 16px 12px 24px 16px;
+  }
+
+  .notification-content .content-title {
+    font-size: 18px;
+  }
+
+  .notification-content .insurance-card {
+    width: 100%;
+    padding: 16px 12px 6px 12px;
+  }
+
+  .notification-content #insurance-guard-svg {
+    width: 100px;
+  }
+
+  .notification-content .card-title {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  .notification.lost-wallet.expanded .collapsible-content-flex {
+    display: block !important;
+  }
+
+  .notification.lost-wallet.expanded .list-item-without-margin {
+    margin-bottom: 8px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .notification-header .active-text {
+    display: none;
+  }
+
+  .notification-content .content-title {
+    font-size: 14px;
+  }
+
+  .notification-content .check-icon {
+    margin: 0 10px 0 5px;
+  }
+
+  .notification-content .list-dot {
+    margin-right: 8px;
+  }
+}

@@ -1,0 +1,101 @@
+.theme-brigit .notification .notification-content {
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,0.10);
+  border-radius: 6px;
+  border: none;
+}
+
+.theme-brigit .notification-content .content-title {
+  color: #333;
+  font-weight: 700;
+}
+
+.theme-brigit .notification-content .description {
+  color: #696969;
+  font-weight: 400;
+}
+
+.theme-brigit .expanded .notification-content .description {
+  border-bottom: 1px solid #EBEBEB;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.theme-brigit .lost-wallet .notification-content .description {
+  border-bottom: none;
+  font-size: 16px;
+  color: #333333;
+  font-weight: 500;
+  margin-bottom: 6px;
+  padding-bottom: 0;
+}
+
+.theme-brigit .notification-content .detail-text {
+  font-size: 16px;
+  color: #696969;
+  font-weight: 400;
+}
+
+.theme-brigit .notification-content .blue-text {
+  font-size: 16px;
+  color: #24956A;
+  font-weight: 500;
+}
+
+.theme-brigit .lost-wallet .notification-content .blue-text {
+  padding-top: 8px;
+}
+
+.theme-brigit .notification-content .card-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.theme-brigit .notification-content .card-info {
+  font-size: 14px;
+}
+
+.theme-brigit .notification-content .highlight {
+  font-weight: 700;
+}
+
+.theme-brigit .notification-content .print {
+  font-size: 16px;
+  color: #696969;
+  margin-bottom: 15px;
+}
+
+.theme-brigit .notification-content .print-icon {
+  display: none;
+  margin-right: 0;
+}
+
+.theme-brigit .notification-content .list-text {
+  font-size: 16px;
+  color: #696969;
+}
+
+.theme-brigit .notification.expanded.lost-wallet .right-panel {
+  padding-top: 0;
+}
+
+@media screen and (max-width: 992px) {
+  .theme-brigit .notification-content .right-panel {
+    margin-top: 25px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .theme-brigit .switch,
+  .theme-brigit .notification-content .check-icon,
+  .theme-brigit .notification-content .active-text {
+    display: none;
+  }
+
+  .theme-brigit .notification-content .content-title {
+    font-size: 16px;
+  }
+
+  .theme-brigit .notification-content .list-item {
+    flex: 0 0 100%;
+  }
+}

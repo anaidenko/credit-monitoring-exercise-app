@@ -1,6 +1,9 @@
 {
-  "name": "with-typescript-eslint-jest",
-  "author": "@erikdstock",
+  "name": "naidenko-frontend-1",
+  "author": {
+    "name": "Andrii Naidenko",
+    "email": "andrii.naidenko@toptal.com"
+  },
   "license": "MIT",
   "version": "1.0.0",
   "scripts": {
@@ -26,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
@@ -39,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "^2.25.0",
     "@typescript-eslint/parser": "^2.25.0",
     "babel-jest": "^25.2.3",
+    "babel-plugin-inline-react-svg": "^1.1.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-react": "^7.19.0",

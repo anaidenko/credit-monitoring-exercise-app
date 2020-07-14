@@ -1,0 +1,34 @@
+.collapsible__open-close-icon {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.collapsible .collapsible__open-close-icon .minus-path,
+.collapsible.expanded .collapsible__open-close-icon .plus-path {
+  display: none;
+}
+
+.collapsible.expanded .collapsible__open-close-icon .minus-path,
+.collapsible .collapsible__open-close-icon .plus-path {
+  display: block;
+}
+
+.collapsible .collapsible__content-block,
+.collapsible .collapsible__content-flex,
+.collapsible .collapsible__content {
+  display: none;
+}
+
+.collapsible.expanded .collapsible__content-block {
+  display: block;
+}
+
+.collapsible.expanded .collapsible__content-flex,
+.collapsible.expanded .collapsible__content {
+  display: flex;
+}

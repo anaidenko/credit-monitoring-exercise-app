@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="133px" height="114px" viewBox="0 0 133 114" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <path d="M78.5083148,6.48224797 C95.9701141,10.9812228 102.090464,12.7824477 102.090464,12.7824477 C102.090464,12.7824477 104.973514,30.4268219 97.051939,63.0150954 C90.6563643,89.3222442 69.6847652,106.222693 51.5008411,112.490193 C33.3169169,106.222693 12.3453178,89.3222442 5.94974314,63.0150954 C-1.9718315,30.4268219 0.908493367,12.7824477 0.908493367,12.7824477 C0.908493367,12.7824477 7.03156809,10.9812228 24.4933673,6.48224797 C42.9824915,1.71622319 51.5008411,-0.00052673416 51.5008411,-0.00052673416 C51.5008411,-0.00052673416 60.0191907,1.71622319 78.5083148,6.48224797 Z" id="path-1"></path>
+    <filter x="-2.9%" y="-2.7%" width="105.9%" height="105.3%" filterUnits="objectBoundingBox" id="filter-3">
+      <feGaussianBlur stdDeviation="2.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+      <feOffset dx="0" dy="1" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+      <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+      <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+    </filter>
+  </defs>
+  <g id="Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="1.1.1-Credit-Alerts-Desktop" transform="translate(-1051.000000, -280.000000)">
+      <g id="insurance" transform="translate(165.000000, 231.000000)">
+        <g id="card" transform="translate(596.000000, 32.000000)">
+          <g id="icon" transform="translate(289.201091, 17.000000)">
+            <g id="shield" transform="translate(15.798909, 0.755167)">
+              <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+              </mask>
+              <g id="Fill-1">
+                <use fill="#0052CC" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-1"></use>
+              </g>
+              <path d="M78.5078476,6.63224783 C95.9696468,11.1312226 102.089997,12.9324475 102.089997,12.9324475 C102.089997,12.9324475 104.973046,30.5768217 97.0514717,63.1650953 C90.655897,89.4722441 69.684298,106.372693 51.5,112.640193 C51.5,101.319154 51.5,0.149473123 51.5,0.149473123 C51.5,0.149473123 60.0187234,1.86622304 78.5078476,6.63224783 Z" id="shadow" fill="#0067FF" mask="url(#mask-2)"></path>
+              <rect id="shadow" fill-opacity="0.047066215" fill="#000000" mask="url(#mask-2)" x="12" y="80.2448332" width="78" height="2"></rect>
+            </g>
+            <rect id="base" fill="#00CC96" x="0.798909438" y="26" width="133" height="56" rx="3"></rect>
+            <path d="M67.2989094,26 L131.798909,26 C132.903479,26 133.798909,26.8954305 133.798909,28 L133.798909,80 C133.798909,81.1045695 132.903479,82 131.798909,82 L67.2989094,82 L67.2989094,82 L67.2989094,26 Z" id="shadow" fill-opacity="0.144749781" fill="#FFFFFF"></path>
+            <g id="text" transform="translate(6.298909, 21.000000)" fill="#FFFFFF" font-weight="normal" line-spacing="52.5600014">
+              <text id="$1-Million" font-family="Heebo" font-size="28" font-weight="700">
+                <tspan x="1" y="35">$1</tspan>
+                <tspan x="32.8828125" y="29" font-size="8"> </tspan>
+                <tspan x="34.875" y="35">Million</tspan>
+              </text>
+              <text id="of-protection" font-family="Heebo" font-size="16">
+                <tspan x="0.5" y="55">OF PROTECTION</tspan>
+              </text>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
