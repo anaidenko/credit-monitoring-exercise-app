@@ -1,49 +1,55 @@
-import { useState } from 'react'
-import cn from 'classnames'
+import { FunctionComponent } from 'react'
+
+import Notification from './Notification'
 
 import OpenCloseIcon from '../../public/icons/open-close.svg'
 import TouchIdIcon from '../../public/icons/touch-id.svg'
+import Collapsible from '../Collapsible'
 
-const NotificationRestorationServices = (): JSX.Element => {
-  const [open, toggle] = useState(false)
+const LeftPanel: FunctionComponent = () => (
+  <div className="left-panel">
+    <div className="title-wrapper">
+      <h3 className="content-title">Identity Restoration Services</h3>
+      <Collapsible.Toggle>
+        <OpenCloseIcon />
+      </Collapsible.Toggle>
+    </div>
+    <Collapsible.Content>
+      <p className="detail-text restoration-services-detail-text text-mobile">
+        Our full-service Identity Restoration service takes the burden off of you in the event that your identity is
+        stolen by going beyond the traditional credit report restoration. We offer a robust case knowledge of non-credit
+        restoration including payday loans, IRS, DMV, and court records.
+      </p>
+    </Collapsible.Content>
+    <p className="detail-text">
+      Our Identity Restoration service assists with the identity restoration process by providing step-by-step
+      instructions you can easily follow to repair and restore your identity.
+    </p>
+    <Collapsible.Content>
+      <p className="blue-text">Please call our U.S. - based call center at 844-395-7319 for assistance</p>
+    </Collapsible.Content>
+  </div>
+)
 
-  return (
-    <div
-      className={cn('notification collapsible restoration-services pack', {
-        expanded: open,
-      })}
-    >
-      <div className="notification-content">
-        <div className="left-panel">
-          <div className="title-wrapper">
-            <h3 className="content-title">Identity Restoration Services</h3>
-            <div className="open-close-icon" onClick={(event) => toggle(!open)}>
-              <OpenCloseIcon />
-            </div>
-          </div>
-          <p className="detail-text restoration-services-detail-text collapsible-content text-mobile">
-            Our full-service Identity Restoration service takes the burden off
-            of you in the event that your identity is stolen by going beyond the
-            traditional credit report restoration. We offer a robust case
-            knowledge of non-credit restoration including payday loans, IRS,
-            DMV, and court records.
-          </p>
-          <p className="detail-text">
-            Our Identity Restoration service assists with the identity
-            restoration process by providing step-by-step instructions you can
-            easily follow to repair and restore your identity.
-          </p>
-          <p className="blue-text collapsible-content">
-            Please call our U.S. - based call center at 844-395-7319 for
-            assistance
-          </p>
-        </div>
-        <div className="right-panel collapsible-content">
-          <div className="password-wrapper">
-            <TouchIdIcon />
-          </div>
-        </div>
+const RightPanel: FunctionComponent = () => (
+  <Collapsible.Content>
+    <div className="right-panel">
+      <div className="password-wrapper">
+        <TouchIdIcon />
       </div>
+    </div>
+  </Collapsible.Content>
+)
+
+const NotificationRestorationServices: FunctionComponent = () => {
+  return (
+    <div>
+      <Collapsible>
+        <Notification className="restoration-services pack">
+          <LeftPanel />
+          <RightPanel />
+        </Notification>
+      </Collapsible>
 
       <style jsx global>
         {`
@@ -51,9 +57,7 @@ const NotificationRestorationServices = (): JSX.Element => {
             flex: 1;
           }
 
-          .restoration-services.notification
-            .notification-content
-            .right-panel {
+          .restoration-services.notification .notification-content .right-panel {
             flex: 0 0 138px;
           }
 
@@ -110,14 +114,11 @@ const NotificationRestorationServices = (): JSX.Element => {
               width: 96px;
             }
 
-            .pack.notification.restoration-services.expanded
-              .detail-text.text-mobile {
+            .pack.notification.restoration-services.expanded .detail-text.text-mobile {
               margin-right: 80px;
             }
 
-            .pack.restoration-services.notification
-              .notification-content
-              .right-panel {
+            .pack.restoration-services.notification .notification-content .right-panel {
               position: absolute;
               right: 16px;
               top: 40px;
@@ -139,9 +140,7 @@ const NotificationRestorationServices = (): JSX.Element => {
             display: none !important;
           }
 
-          .theme-brigit
-            .notification-content
-            .restoration-services-detail-text {
+          .theme-brigit .notification-content .restoration-services-detail-text {
             color: #696969;
             padding-bottom: 20px;
             font-weight: 400;
@@ -151,23 +150,15 @@ const NotificationRestorationServices = (): JSX.Element => {
           }
 
           @media screen and (max-width: 576px) {
-            .theme-brigit
-              .restoration-services.notification
-              .notification-content
-              .right-panel {
+            .theme-brigit .restoration-services.notification .notification-content .right-panel {
               flex: 0;
             }
 
-            .theme-brigit
-              .restoration-services
-              .notification-content
-              .password-wrapper {
+            .theme-brigit .restoration-services .notification-content .password-wrapper {
               display: none;
             }
 
-            .theme-brigit
-              .pack.notification.restoration-services.expanded
-              .detail-text.text-mobile {
+            .theme-brigit .pack.notification.restoration-services.expanded .detail-text.text-mobile {
               margin-right: 0;
             }
           }
