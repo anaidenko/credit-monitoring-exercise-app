@@ -1,14 +1,38 @@
+import { useState, useCallback, useEffect, FunctionComponent } from 'react'
 import useToggle from '@/libs/hooks/use-toggle'
-import Switch from '../Switch'
+import Switch from '@/components/Switch'
+import TransUnionLockHistory from './TransUnionLockHistory'
 
 import TransUnionLogo from '../../public/icons/transunion-logo.svg'
 import CreditlockUnlockedIcon from '../../public/icons/creditlock-unlocked.svg'
 import CreditlockLockedIcon from '../../public/icons/creditlock-locked.svg'
-import LockIcon from '../../public/icons/lock.svg'
-import UnlockIcon from '../../public/icons/unlock.svg'
 
-const UnlockTransUnion = (): JSX.Element => {
+import lockHistoryMock from '@/data/mocks/lock-history'
+
+type Props = {
+  defaultHistorySize?: number
+  showAll?: boolean
+}
+
+const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, showAll }: Props) => {
   const [locked, toggleLocked] = useToggle(false)
+
+  const [history] = useState(lockHistoryMock)
+  const [historySize, setHistorySize] = useState(showAll ? history.length : defaultHistorySize)
+  const [historyShown, setHistoryShown] = useState(history.slice(0, historySize))
+
+  const showHistory = useCallback(
+    (size) => {
+      setHistorySize(size)
+      setHistoryShown(history.slice(0, size))
+    },
+    [history, historySize]
+  )
+
+  useEffect(() => {
+    showHistory(historySize)
+  }, [historySize])
+
   return (
     <section className="center-block">
       <div className="logo">
@@ -38,38 +62,12 @@ const UnlockTransUnion = (): JSX.Element => {
       </div>
 
       <div>
-        <p className="history-title">TransUnion lock history</p>
-        <ul>
-          <li className="history-list">
-            <span className="date">2020-15-03 6:00PM GMT +5 </span>
-            <div className="lock-wrapper">
-              <LockIcon />
-              <span className="lock">Lock</span>
-            </div>
-          </li>
-          <li className="history-list">
-            <span className="date">2020-15-03 6:00PM GMT +5 </span>
-            <div className="lock-wrapper">
-              <UnlockIcon />
-              <span className="lock">Unlock</span>
-            </div>
-          </li>
-          <li className="history-list">
-            <span className="date">2020-15-03 6:00PM GMT +5 </span>
-            <div className="lock-wrapper">
-              <LockIcon />
-              <span className="lock">Lock</span>
-            </div>
-          </li>
-          <li className="history-list">
-            <span className="date">2020-15-03 6:00PM GMT +5 </span>
-            <div className="lock-wrapper">
-              <UnlockIcon />
-              <span className="lock">Unlock</span>
-            </div>
-          </li>
-        </ul>
-        <p className="show-all">Show All (5)</p>
+        <TransUnionLockHistory data={historyShown} />
+        {history.length > historySize && (
+          <p className="show-all" onClick={() => showHistory(history.length)}>
+            Show All ({history.length})
+          </p>
+        )}
       </div>
 
       <style jsx global>{`
@@ -119,40 +117,6 @@ const UnlockTransUnion = (): JSX.Element => {
           width: 80%;
         }
 
-        .center-block .history-title {
-          color: #3e3f42;
-          font-size: 16px;
-          margin-bottom: 7px;
-        }
-
-        .center-block .history-list {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 9px 0;
-          border-bottom: 1px solid var(--light-border);
-        }
-
-        .center-block .history-list:last-child {
-          border-bottom: none;
-        }
-
-        .center-block .date {
-          color: #6b6c6f;
-          font-size: 14px;
-          flex: 1;
-        }
-
-        .center-block .lock-wrapper {
-          flex: 0 0 75px;
-        }
-
-        .center-block .lock {
-          color: #6b6c6f;
-          font-size: 14px;
-          margin-left: 13px;
-        }
-
         .center-block .show-all {
           text-align: center;
           margin: 8px auto 0;
@@ -188,18 +152,6 @@ const UnlockTransUnion = (): JSX.Element => {
         }
 
         @media screen and (max-width: 380px) {
-          .center-block .lock {
-            font-size: 12px;
-          }
-
-          .center-block .lock-wrapper {
-            flex: 0 0 70px;
-          }
-
-          .center-block .date {
-            font-size: 12px;
-          }
-
           .credit-freeze-center .lock-text {
             width: 90%;
           }
@@ -226,13 +178,6 @@ const UnlockTransUnion = (): JSX.Element => {
             height: 57px;
           }
 
-          .theme-brigit .credit-freeze-center .history-title {
-            font-size: 16px;
-            color: #24956a;
-            text-align: center;
-            line-height: 22px;
-          }
-
           .theme-brigit .credit-freeze-center .transunion-file {
             color: #333333;
             font-weight: 700;
@@ -242,36 +187,6 @@ const UnlockTransUnion = (): JSX.Element => {
             font-size: 16px;
             color: #696969;
             margin-bottom: 30px;
-          }
-
-          .theme-brigit .center-block .history-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-          }
-
-          .theme-brigit .center-block .history-list {
-            padding: 21px 20px;
-          }
-
-          .theme-brigit .center-block .date {
-            color: #696969;
-          }
-
-          .theme-brigit .center-block .lock {
-            color: #333333;
-            font-weight: 500;
-          }
-
-          .theme-brigit .center-block .lock-wrapper {
-            flex: 0 0 75px;
-          }
-
-          .theme-brigit .center-block .history-list:last-child {
-            border-bottom: 1px solid var(--light-border);
-          }
-
-          .theme-brigit .center-block .history-list:first-child {
-            border-top: 1px solid var(--light-border);
           }
 
           .theme-brigit .center-block .show-all {
@@ -294,23 +209,6 @@ const UnlockTransUnion = (): JSX.Element => {
             .theme-brigit .credit-freeze-center .active .lock-text {
               width: 100%;
             }
-
-            .theme-brigit .center-block .lock,
-            .theme-brigit .center-block .date {
-              font-size: 13px;
-            }
-
-            .theme-brigit .center-block .lock {
-              margin-left: 5px;
-            }
-
-            .theme-brigit .center-block .history-list {
-              padding: 10px 0;
-            }
-
-            .theme-brigit .center-block .lock-wrapper {
-              flex: 0 0 65px;
-            }
           }
         `}
       </style>
@@ -318,4 +216,4 @@ const UnlockTransUnion = (): JSX.Element => {
   )
 }
 
-export default UnlockTransUnion
+export default TransUnionLockCard

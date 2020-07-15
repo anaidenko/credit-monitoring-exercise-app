@@ -48,6 +48,7 @@ const Button: FunctionComponent<Props> = ({ children, className, type, variant, 
           border: 1px solid #d8dce6;
           background-color: #ffffff;
           color: #3e3f42;
+          outline: none;
         }
 
         .btn.primary {
