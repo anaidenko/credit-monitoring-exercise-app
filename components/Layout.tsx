@@ -8,9 +8,7 @@ const Layout = ({ children }): JSX.Element => (
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="theme-color" content="#fafafa" />
     </Head>
-    <div className="theme-brigit container">
-      {children}
-    </div>
+    <div className="theme-brigit container">{children}</div>
   </div>
 )
 
