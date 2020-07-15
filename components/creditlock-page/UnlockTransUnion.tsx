@@ -17,9 +17,7 @@ const UnlockTransUnion = (): JSX.Element => {
           <span className="unlocked">Unlocked</span>
         </div>
         <p className="transunion-file">Your TransUnion File is Unlocked</p>
-        <p className="lock-text">
-          Lock your score to prevent un-authorzied access to your credit file.
-        </p>
+        <p className="lock-text">Lock your score to prevent un-authorzied access to your credit file.</p>
       </div>
       <div>
         <p className="history-title">TransUnion lock history</p>
@@ -104,8 +102,7 @@ const UnlockTransUnion = (): JSX.Element => {
           border: 1px solid #fafafa;
           border-radius: 3px;
           background-color: #ffffff;
-          box-shadow: inset 0 2px 0 0 rgba(255, 255, 255, 0.06),
-            0 1px 1px 0 rgba(22, 29, 37, 0.1);
+          box-shadow: inset 0 2px 0 0 rgba(255, 255, 255, 0.06), 0 1px 1px 0 rgba(22, 29, 37, 0.1);
           display: flex;
           justify-content: center;
           align-items: center;
@@ -119,8 +116,7 @@ const UnlockTransUnion = (): JSX.Element => {
           border: 1px solid #00c798;
           border-radius: 3px;
           background-color: #27d381;
-          box-shadow: inset 0 2px 0 0 rgba(255, 255, 255, 0.06),
-            0 1px 1px 0 rgba(22, 29, 37, 0.1);
+          box-shadow: inset 0 2px 0 0 rgba(255, 255, 255, 0.06), 0 1px 1px 0 rgba(22, 29, 37, 0.1);
           margin-right: 13px;
           display: flex;
           justify-content: center;
@@ -301,8 +297,7 @@ const UnlockTransUnion = (): JSX.Element => {
             height: 49px;
             width: 49px;
             background: #24956a;
-            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.18),
-              0 2px 2px 0 rgba(0, 0, 0, 0.22);
+            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.18), 0 2px 2px 0 rgba(0, 0, 0, 0.22);
             border-radius: 5px;
             left: -2px;
             border: none;
@@ -342,8 +337,7 @@ const UnlockTransUnion = (): JSX.Element => {
             height: 45px;
             right: 0;
             position: relative;
-            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.18),
-              0 2px 2px 0 rgba(0, 0, 0, 0.22);
+            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.18), 0 2px 2px 0 rgba(0, 0, 0, 0.22);
           }
 
           .theme-brigit .credit-freeze-center .white-area:after {
