@@ -1,4 +1,5 @@
-import QuestionList from './QuestionList'
+import QuestionsList from '@/components/creditlock-page/QuestionsList'
+import * as Question from './Questions'
 
 const FactsSteps = (): JSX.Element => {
   return (
@@ -9,7 +10,14 @@ const FactsSteps = (): JSX.Element => {
         <div className="lock-freeze-box">Credit Freeze</div>
       </div>
 
-      <QuestionList />
+      <QuestionsList>
+        <Question.WhatIsCreditLock />
+        <Question.WhyShouldILockMyCredit />
+        <Question.WhatACreditLockDoesAndDoesntDo />
+        <Question.HowLongWillItTakeForMyCreditReportToUnlock />
+        <Question.CanIBothLockAndFreezeMyCreditAtTheSameTime />
+        <Question.WillACreditLockOrFreezeAffectMyCreditScores />
+      </QuestionsList>
 
       <style jsx global>
         {`

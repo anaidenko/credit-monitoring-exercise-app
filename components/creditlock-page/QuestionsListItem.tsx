@@ -1,16 +1,16 @@
-import { FunctionComponent, ReactNode } from 'react'
+import { FunctionComponent, ReactElement, cloneElement } from 'react'
 
-import Collapsible from '../Collapsible'
+import Collapsible from '@/components/Collapsible'
 import PlusIcon from '../../public/icons/plus.svg'
 
 type Props = {
   number?: number
-  question: ReactNode
-  answer?: ReactNode
+  question: ReactElement
+  answer?: ReactElement
   defaultOpen?: boolean
 }
 
-const QuestionListItem: FunctionComponent<Props> = ({ number, question, answer, defaultOpen, ...rest }) => {
+const QuestionsListItem: FunctionComponent<Props> = ({ number, question, answer, defaultOpen, ...rest }) => {
   return (
     <div>
       <Collapsible disabled={!answer} defaultOpen={defaultOpen}>
@@ -25,14 +25,13 @@ const QuestionListItem: FunctionComponent<Props> = ({ number, question, answer, 
 
           <div>
             <Collapsible.Toggle>
-              <p className="question">
-                {number && <span className="number">{number}.</span>}
-                {question}
-              </p>
+              {cloneElement(question, { number })}
+              {/* <Question number={number}>{question}</Question> */}
             </Collapsible.Toggle>
             {answer && (
               <Collapsible.Content>
-                <div className="answer collapsible__content-block">{answer}</div>
+                {cloneElement(answer, { className: 'collapsible__content-block' })}
+                {/* <Answer className="collapsible__content-block">{answer}</Answer> */}
               </Collapsible.Content>
             )}
           </div>
@@ -53,36 +52,12 @@ const QuestionListItem: FunctionComponent<Props> = ({ number, question, answer, 
             border-bottom: none;
           }
 
-          .number {
-            color: #1665d8;
-            font-size: 18px;
-            margin-right: 8px;
-          }
-
-          .question {
-            color: #3e3f42;
-            font-size: 18px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            cursor: pointer;
-          }
-
           .collapsible .question {
             margin-bottom: 0;
           }
 
           .expanded .question {
             margin-bottom: 8px;
-          }
-
-          .answer {
-            font-size: 16px;
-            color: #6b6c6f;
-            padding-left: 26px;
-          }
-
-          .answer.no-padding-left {
-            padding-left: 0;
           }
 
           .step {
@@ -126,19 +101,6 @@ const QuestionListItem: FunctionComponent<Props> = ({ number, question, answer, 
           }
 
           @media screen and (max-width: 576px) {
-            .number {
-              margin-right: 14px;
-              font-size: 16px;
-            }
-
-            .question {
-              font-size: 16px;
-            }
-
-            .answer {
-              font-size: 14px;
-            }
-
             .questions li {
               margin-left: 32px;
             }
@@ -148,20 +110,10 @@ const QuestionListItem: FunctionComponent<Props> = ({ number, question, answer, 
               font-size: 14px;
             }
           }
-
-          @media screen and (max-width: 340px) {
-            .answer {
-              padding-right: 15px;
-            }
-
-            .number {
-              margin-right: 10px;
-            }
-          }
         `}
       </style>
     </div>
   )
 }
 
-export default QuestionListItem
+export default QuestionsListItem
