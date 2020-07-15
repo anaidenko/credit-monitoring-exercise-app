@@ -1,10 +1,14 @@
-const Header = (): JSX.Element => (
+import { FunctionComponent } from 'react'
+
+import Title from '../Title'
+
+const Header: FunctionComponent = () => (
   <header className="credit-lock-header">
-    <h2 className="title">Credit Lock Center</h2>
+    <Title>Credit Lock Center</Title>
+
     <p className="description">
-      A Credit Lock is your ultimate protection against identity thieves opening
-      accounts in your name, as it effectively shuts down access to your credit
-      profile by any new credits.
+      A Credit Lock is your ultimate protection against identity thieves opening accounts in your name, as it
+      effectively shuts down access to your credit profile by any new credits.
     </p>
 
     <style jsx global>
@@ -36,6 +40,29 @@ const Header = (): JSX.Element => (
 
           .credit-lock-header .description {
             font-size: 16px;
+          }
+        }
+      `}
+    </style>
+
+    <style jsx global>
+      {`
+        .theme-brigit .credit-lock-header {
+          margin-top: 40px;
+        }
+
+        .theme-brigit .credit-lock-header .title {
+          color: #333333;
+          font-weight: 700;
+        }
+
+        @media screen and (max-width: 576px) {
+          .theme-brigit .credit-lock-header .title {
+            font-size: 30px;
+          }
+
+          .theme-brigit .credit-lock-header .description {
+            margin: 15px 0 40px;
           }
         }
       `}

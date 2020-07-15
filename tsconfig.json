@@ -15,7 +15,9 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["*"]
+      "@/components/*": ["components/*"],
+      "@/libs/*": ["libs/*"],
+      "@/styles/*": ["styles/*"]
     }
   },
   "exclude": ["node_modules", ".next", "out"],
