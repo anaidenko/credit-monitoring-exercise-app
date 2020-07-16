@@ -1,0 +1,6 @@
+const PREFIX = 'NF1.'
+
+export const LOCAL_STORAGE_PREFIX = PREFIX
+export const CLIENT_KEY = `${PREFIX}CLIENT_KEY`
+export const AUTH_TOKEN = `${PREFIX}AUTH_TOKEN`
+export const AUTH_CLIENT_KEY = `${PREFIX}AUTH_CLIENT_KEY`
