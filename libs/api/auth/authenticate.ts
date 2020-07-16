@@ -26,7 +26,13 @@ export default async function authenticate(data: {
   const { clientKey } = data
 
   const appKey = API_APP_KEY
-  const { questions, provider, authToken } = await getAuthQuestions(data)
+  const { questions, provider, authToken } = await getAuthQuestions(data).catch((err: ApiError) => {
+    if (err.status === 400 && err.message === 'Unable to Complete Request') {
+      throw new ApiError('Client key must be invalid', err)
+    } else {
+      throw err
+    }
+  })
 
   const answers = answerAuthQuestions(questions, provider)
   if (!answers) {
