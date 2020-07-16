@@ -1,7 +1,7 @@
 import { resolve } from 'url'
 import queryString, { ParsedQuery } from 'query-string'
 
-import useFetcher from '../hooks/use-fetcher'
+import { getFetcher } from '../hooks/use-fetcher'
 import { API_URL, API_APP_KEY } from '@/libs/api/config'
 import ApiError from '@/libs/api/error'
 
@@ -27,7 +27,7 @@ export async function get<R, Q extends ParsedQuery>(url: string, query?: Q): Pro
     },
   }
 
-  const [fetcher] = useFetcher()
+  const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
@@ -35,7 +35,7 @@ export async function get<R, Q extends ParsedQuery>(url: string, query?: Q): Pro
     throw error
   }
 
-  const data = response.json()
+  const data = await response.json()
   return data
 }
 
@@ -51,7 +51,7 @@ export async function post<R, P = any>(url: string, payload?: P): Promise<R> {
     body: JSON.stringify(payload),
   }
 
-  const [fetcher] = useFetcher()
+  const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
@@ -59,7 +59,7 @@ export async function post<R, P = any>(url: string, payload?: P): Promise<R> {
     throw error
   }
 
-  const data = response.json()
+  const data = await response.json()
   return data
 }
 
@@ -75,7 +75,7 @@ export async function put<R, P = any>(url: string, payload?: P): Promise<R> {
     body: JSON.stringify(payload),
   }
 
-  const [fetcher] = useFetcher()
+  const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
@@ -83,7 +83,7 @@ export async function put<R, P = any>(url: string, payload?: P): Promise<R> {
     throw error
   }
 
-  const data = response.json()
+  const data = await response.json()
   return data
 }
 
@@ -98,7 +98,7 @@ export async function del<R = void>(url: string): Promise<R> {
     },
   }
 
-  const [fetcher] = useFetcher()
+  const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
@@ -106,6 +106,6 @@ export async function del<R = void>(url: string): Promise<R> {
     throw error
   }
 
-  const data = response.json()
+  const data = await response.json()
   return data
 }

@@ -2,10 +2,15 @@ export default class ApiError<T = any> extends Error {
   status?: number
   statusText?: string
   data?: T
+  inner?: Error
 
-  constructor(message: string) {
+  constructor(message: string, inner?: Error) {
     super(message)
+
     this.name = 'ApiError'
+    if (inner) {
+      this.inner = inner
+    }
   }
 
   static async readFrom(response: Response) {

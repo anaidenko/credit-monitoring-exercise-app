@@ -1,17 +1,39 @@
 import { fetcherFn } from 'swr/dist/types'
+import { useState, useEffect } from 'react'
+import mockFetcher from '@/data/mocks/fetcher'
+import useMock from './use-mock'
 
 const DEFAULT_FETCHER = fetch
 
-let fetcher: fetcherFn<any>
+let currentFetcher: fetcherFn<any> = DEFAULT_FETCHER
 
-type Response = [fetcherFn<any>, (value: fetcherFn<any>) => void]
+type Hook = [fetcherFn<any>, (value: fetcherFn<any>) => void]
 
-const useFetcher = (initialState: fetcherFn<any> = DEFAULT_FETCHER): Response => {
-  if (initialState) {
-    fetcher = initialState
-  }
-  return [fetcher, (update) => (fetcher = update || DEFAULT_FETCHER)]
+const getFetcher = () => currentFetcher
+
+const useFetcher = (customFetcher?: fetcherFn<any>): Hook => {
+  const [mock] = useMock()
+  const [fetcher, setFetcher] = useState(() => customFetcher || currentFetcher || DEFAULT_FETCHER)
+
+  useEffect(() => {
+    if (mock) {
+      if (currentFetcher !== mockFetcher.instance) {
+        currentFetcher = mockFetcher.instance
+        setFetcher(() => currentFetcher)
+      }
+    } else {
+      if (currentFetcher === mockFetcher.instance) {
+        currentFetcher = DEFAULT_FETCHER
+        setFetcher(() => currentFetcher)
+      } else {
+        currentFetcher = fetcher || DEFAULT_FETCHER
+        setFetcher(() => currentFetcher)
+      }
+    }
+  })
+
+  return [fetcher, setFetcher]
 }
 
-export { DEFAULT_FETCHER }
+export { getFetcher, DEFAULT_FETCHER }
 export default useFetcher
