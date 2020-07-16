@@ -1,24 +1,20 @@
-const history = [
+import { MonitorEnrollment, EnrollmentCode } from '@/libs/api/monitoring/getEnrollments'
+
+const data: MonitorEnrollment[] = [
   {
-    date: '2020-03-15T18:00:00.000Z',
-    event: 'Lock',
+    provider: 'tui',
+    enrollmentCode: EnrollmentCode.TUICreditLock,
+    active: true,
+    cancellationDate: '',
+    enrollmentDate: '2020-07-16T23:09:37.458Z',
   },
   {
-    date: '2020-03-15T18:00:00.000Z',
-    event: 'Unlock',
-  },
-  {
-    date: '2020-03-15T18:00:00.000Z',
-    event: 'Lock',
-  },
-  {
-    date: '2020-03-15T18:00:00.000Z',
-    event: 'Unlock',
-  },
-  {
-    date: '2020-03-15T18:00:00.000Z',
-    event: 'Lock',
+    provider: 'tui',
+    enrollmentCode: EnrollmentCode.TUIInstantMonitoring,
+    active: true,
+    cancellationDate: '',
+    enrollmentDate: '2020-07-16T22:38:16.122Z',
   },
 ]
 
-export default history
+export default data

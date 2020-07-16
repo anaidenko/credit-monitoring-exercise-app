@@ -1,6 +1,6 @@
 import { fetcherFn } from 'swr/dist/types'
 import { useState, useEffect } from 'react'
-import mockFetcher from '@/data/mocks/fetcher'
+import mockFetcher from '@/data/mocks/mock-fetcher'
 import useMock from './use-mock'
 
 const DEFAULT_FETCHER = fetch
@@ -30,7 +30,7 @@ const useFetcher = (customFetcher?: fetcherFn<any>): Hook => {
         setFetcher(() => currentFetcher)
       }
     }
-  })
+  }, [mock, fetcher])
 
   return [fetcher, setFetcher]
 }

@@ -17,7 +17,7 @@ function useClientKey(initialValue?: string): Response {
     if (storedClientKey !== newClientKey) {
       setClientKey(newClientKey)
     }
-  })
+  }, [query.clientKey, initialValue, storedClientKey])
 
   return [storedClientKey, setClientKey]
 }

@@ -5,10 +5,13 @@ import useLocalStorage from './use-local-storage'
 import useClientKey from './use-client-key'
 import { AuthenticationQuestionProvider } from '@/libs/api/auth/getAuthQuestions'
 import { AUTH_TOKEN, AUTH_CLIENT_KEY } from '../constants/local-storage'
+import useMock from './use-mock'
+import useMounted from './use-mounted'
 
 type Response = [string, { error: Error; loading: boolean; mutate: any; revalidate: any }]
 
 export default function useAuthToken(): Response {
+  const mounted = useMounted()
   const [clientKey, setClientKey] = useClientKey()
   const [storedToken, setToken] = useLocalStorage(AUTH_TOKEN)
   const [authClientKey, setAuthClientKey] = useLocalStorage(AUTH_CLIENT_KEY)
@@ -34,7 +37,8 @@ export default function useAuthToken(): Response {
     })
   }
 
-  const { data, error, mutate, revalidate } = useSWR(clientKey, authenticateUsingCache, {
+  const authenticateKey = mounted && ['authenticate', clientKey]
+  const { data, error, mutate, revalidate } = useSWR(authenticateKey, authenticateUsingCache, {
     errorRetryCount: 1,
     errorRetryInterval: 300,
   })

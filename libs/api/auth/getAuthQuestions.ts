@@ -1,7 +1,7 @@
 import { get } from '@/libs/api/client'
 import { API_APP_KEY } from '@/libs/api/config'
 
-export type AuthenticateQuestionsRequest = {
+export type Request = {
   appKey: string
   clientKey: string
   provider1?: AuthenticationQuestionProvider
@@ -9,7 +9,7 @@ export type AuthenticateQuestionsRequest = {
   provider3?: AuthenticationQuestionProvider
 }
 
-export type AuthenticateQuestionsResponse = {
+export type Response = {
   authToken: string
   provider: AuthenticationQuestionProvider
   questions: AuthenticateQuestion[]
@@ -28,14 +28,14 @@ export type AuthenticatePossibleAnswer = {
   text: string
 }
 
-export default async function getAuthQuestions(data: {
+export default async function getAuthQuestions(query: {
   clientKey: string
   providers: AuthenticationQuestionProvider[]
 }) {
-  const { clientKey, providers } = data
+  const { clientKey, providers } = query
   const appKey = API_APP_KEY
-  const query: AuthenticateQuestionsRequest = { appKey, clientKey, ...mapAuthProviders(providers) }
-  const response: AuthenticateQuestionsResponse = await get('/api/authenticate/v2', query)
+  const request: Request = { appKey, clientKey, ...mapAuthProviders(providers) }
+  const response: Response = await get('/api/authenticate/v2', request)
   return response
 }
 

@@ -1,13 +1,18 @@
 import { useState, useCallback, useEffect, FunctionComponent } from 'react'
+import useSWR, { cache } from 'swr'
+
 import useToggle from '@/libs/hooks/use-toggle'
 import Switch from '@/components/Switch'
 import TransUnionLockHistory from './TransUnionLockHistory'
+import useUserTokens from '@/libs/hooks/use-user-tokens'
 
 import TransUnionLogo from '../../public/icons/transunion-logo.svg'
 import CreditlockUnlockedIcon from '../../public/icons/creditlock-unlocked.svg'
 import CreditlockLockedIcon from '../../public/icons/creditlock-locked.svg'
-
-import lockHistoryMock from '@/data/mocks/lock-history'
+import { getEnrollments, createEnrollment, deleteEnrollment } from '@/libs/api/monitoring'
+import InlineError from '../InlineError'
+import { EnrollmentCode } from '@/libs/api/monitoring/getEnrollments'
+import { MonitorEnrollment } from '../../libs/api/monitoring/getEnrollments'
 
 type Props = {
   defaultHistorySize?: number
@@ -15,23 +20,92 @@ type Props = {
 }
 
 const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, showAll }: Props) => {
-  const [locked, toggleLocked] = useToggle(false)
+  const tokens = useUserTokens()
 
-  const [history] = useState(lockHistoryMock)
-  const [historySize, setHistorySize] = useState(showAll ? history.length : defaultHistorySize)
-  const [historyShown, setHistoryShown] = useState(history.slice(0, historySize))
+  const { clientKey, userToken } = tokens
+
+  const getEnrollmentsKey = tokens.userToken && ['getEnrollments']
+  const { data: enrollments, error } = useSWR(getEnrollmentsKey, () => getEnrollments({ clientKey, userToken }), {
+    errorRetryCount: 1,
+  })
+
+  const [showLocked, toggleShowLocked] = useToggle(false)
+  const [savingLocked, setSavingLocked] = useState(false)
+  const [savedLocked, setSavedLocked] = useState(false)
+  const [monitoring, setMonitoring] = useState(false)
+
+  const toggleLocked = useCallback(() => {
+    setSavingLocked(!showLocked)
+    toggleShowLocked()
+  }, [showLocked])
+
+  const saveEnrollmentKey = savingLocked != savedLocked ? ['saveEnrollment', savingLocked, tokens.userToken] : null
+  const { data: saveLockedResponse, error: saveLockedError } = useSWR(
+    saveEnrollmentKey,
+    async () => {
+      cache.delete(saveEnrollmentKey, false)
+
+      const value = savingLocked
+
+      if (!monitoring) {
+        await createEnrollment({ clientKey, userToken, enrollmentCode: EnrollmentCode.TUIInstantMonitoring })
+      }
+
+      if (value) {
+        await createEnrollment({ clientKey, userToken, enrollmentCode: EnrollmentCode.TUICreditLock })
+        setSavedLocked(value)
+      } else {
+        await deleteEnrollment({ clientKey, userToken, enrollmentCode: EnrollmentCode.TUICreditLock })
+        setSavedLocked(value)
+      }
+    },
+    { errorRetryCount: 1, focusThrottleInterval: 0, dedupingInterval: 0 }
+  )
+
+  const checkMonitoring = useCallback(() => {
+    if (enrollments?.length > 0) {
+      const monitoring = enrollments.some(
+        (x) =>
+          x.active &&
+          (x.enrollmentCode === EnrollmentCode.TUIEnhancedMonitoring ||
+            EnrollmentCode.TUIInstantMonitoring ||
+            EnrollmentCode.TUIStandardMonitoring)
+      )
+      setMonitoring(monitoring)
+    }
+  }, [enrollments])
+
+  useEffect(() => {
+    checkMonitoring()
+  }, [enrollments])
+
+  const [history, setHistory] = useState<MonitorEnrollment[]>([])
+  const [historyShowSize, setHistorySize] = useState(defaultHistorySize)
+  const [historyShown, setHistoryShown] = useState<MonitorEnrollment[]>([])
+
+  useEffect(() => {
+    const history = enrollments?.filter((x) => x.enrollmentCode === EnrollmentCode.TUICreditLock) || []
+    setHistory(history)
+    
+    const locked = history[0]?.active
+    toggleShowLocked(locked)
+    setSavingLocked(locked)
+    setSavedLocked(locked)
+  }, [enrollments])
 
   const showHistory = useCallback(
-    (size) => {
-      setHistorySize(size)
-      setHistoryShown(history.slice(0, size))
+    (size?: number) => {
+      if (size === undefined || size !== historyShowSize) {
+        setHistorySize(size)
+        setHistoryShown(showAll ? history : history?.slice(0, size))
+      }
     },
-    [history, historySize]
+    [history, historyShowSize]
   )
 
   useEffect(() => {
-    showHistory(historySize)
-  }, [historySize])
+    showHistory()
+  }, [enrollments, monitoring])
 
   return (
     <section className="center-block">
@@ -40,15 +114,15 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
       </div>
       <div className="middle-panel">
         <Switch
-          isOn={locked}
+          isOn={showLocked}
           variant="primary"
-          handleIcon={locked ? <CreditlockLockedIcon /> : <CreditlockUnlockedIcon />}
+          handleIcon={showLocked ? <CreditlockLockedIcon /> : <CreditlockUnlockedIcon />}
           onChange={() => toggleLocked()}
           checkedText="Locked"
           uncheckedText="Unlocked"
         ></Switch>
 
-        {locked ? (
+        {showLocked ? (
           <>
             <p className="transunion-file">Your TransUnion File is Locked</p>
             <p className="lock-text">Unlock your score to open new accounts under your name</p>
@@ -61,15 +135,18 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
         )}
       </div>
 
-      <div>
-        <TransUnionLockHistory data={historyShown} />
-        {history.length > historySize && (
-          <p className="show-all" onClick={() => showHistory(history.length)}>
-            Show All ({history.length})
-          </p>
-        )}
-      </div>
+      {(error || saveLockedError) && <InlineError message={error?.message || saveLockedError?.message} />}
 
+      {history?.length > 0 && historyShown?.length > 0 && (
+        <div>
+          <TransUnionLockHistory data={historyShown} />
+          {history?.length > historyShowSize && (
+            <p className="show-all" onClick={() => showHistory(history.length)}>
+              Show All ({history.length})
+            </p>
+          )}
+        </div>
+      )}
       <style jsx global>{`
         section.credit-freeze-center {
           margin-top: 0;
@@ -157,7 +234,6 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
           }
         }
       `}</style>
-
       <style jsx global>
         {`
           .theme-brigit .credit-freeze-center .center-block {

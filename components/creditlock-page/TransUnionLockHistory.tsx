@@ -1,29 +1,27 @@
 import { FunctionComponent } from 'react'
 import Date from '../Date'
+import { MonitorEnrollment } from '@/libs/api/monitoring/getEnrollments'
 
 import LockIcon from '../../public/icons/lock.svg'
 import UnlockIcon from '../../public/icons/unlock.svg'
 
-type LockHistoryItem = {
-  date: string
-  event: string
-}
-
 type Props = {
-  data: LockHistoryItem[]
+  data: MonitorEnrollment[]
 }
 
 const TransUnionLockHistory: FunctionComponent<Props> = ({ data }: Props) => (
   <div className="lock-history">
     <p className="history-title">TransUnion lock history</p>
     <ul>
+      {data.length === 0 && <li className="history-list">Empty</li>}
       {data.map((entry, i) => (
         <li className="history-list" key={i}>
-          <Date dateString={entry.date} dateFormat="yyyy-MM-dd K:mma OOO" /> {/* e.g. 2020-03-15 6:00PM GMT +5 */}
+          {/* e.g. 2020-03-15 6:00PM GMT +5 */}
+          <Date dateString={entry.enrollmentDate} dateFormat="yyyy-MM-dd K:mma OOO" />{' '}
           <div className="lock-wrapper">
-            {entry.event === 'Lock' && <LockIcon />}
-            {entry.event === 'Unlock' && <UnlockIcon />}
-            <span className="lock-label">{entry.event}</span>
+            {entry.active && <LockIcon />}
+            {!entry.active && <UnlockIcon />}
+            <span className="lock-label">{entry.active ? 'Lock' : 'Unlock'}</span>
           </div>
         </li>
       ))}

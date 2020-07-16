@@ -7,8 +7,14 @@ import NotificationLostWallet from '@/components/id-protection-page/Notification
 import NotificationRestorationServices from '@/components/id-protection-page/NotificationRestorationServices'
 import useAuthToken from '@/libs/hooks/use-auth-token'
 import Loading from '@/components/Loading'
+import useMock from '@/libs/hooks/use-mock'
 
-export const IdProtection: FunctionComponent = (): JSX.Element => {
+type Props = {
+  mock?: boolean
+}
+
+export const IdProtection: FunctionComponent<Props> = ({ mock }: Props): JSX.Element => {
+  useMock(mock)
   const [token, { error }] = useAuthToken()
 
   if (error) return <div>Error: {error.message}</div>

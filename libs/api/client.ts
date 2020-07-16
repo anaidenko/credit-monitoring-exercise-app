@@ -14,7 +14,7 @@ const validateConfig = () => {
   }
 }
 
-export async function get<R, Q extends ParsedQuery>(url: string, query?: Q): Promise<R> {
+export async function get<R, Q extends ParsedQuery>(url: string, query?: Q, headers?: HeadersInit): Promise<R> {
   validateConfig()
 
   const apiUrl = resolve(API_URL, url)
@@ -23,6 +23,7 @@ export async function get<R, Q extends ParsedQuery>(url: string, query?: Q): Pro
   const params = {
     method: 'GET',
     headers: {
+      ...headers,
       'Content-Type': 'application/json; charset=utf-8',
     },
   }
@@ -31,81 +32,113 @@ export async function get<R, Q extends ParsedQuery>(url: string, query?: Q): Pro
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
-    const error = await ApiError.readFrom(response)
-    throw error
+    if (response.status >= 400) {
+      const error = await ApiError.readFrom(response)
+      throw error
+    } else {
+      return // nothing
+    }
   }
 
   const data = await response.json()
   return data
 }
 
-export async function post<R, P = any>(url: string, payload?: P): Promise<R> {
+export async function post<R, P = any>(url: string, payload?: P, headers?: HeadersInit): Promise<R> {
   validateConfig()
 
   const requestUrl = resolve(API_URL, url)
   const params = {
     method: 'POST',
     headers: {
+      ...headers,
       'Content-Type': 'application/json; charset=utf-8',
+      pragma: 'no-cache',
+      'cache-control': 'no-cache',
     },
-    body: JSON.stringify(payload),
+    body: payload ? JSON.stringify(payload) : undefined,
   }
 
   const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
-    const error = await ApiError.readFrom(response)
-    throw error
+    if (response.status >= 400) {
+      const error = await ApiError.readFrom(response)
+      throw error
+    } else {
+      return // nothing
+    }
   }
 
   const data = await response.json()
   return data
 }
 
-export async function put<R, P = any>(url: string, payload?: P): Promise<R> {
+export async function put<R, P = any>(url: string, payload?: P, headers?: HeadersInit): Promise<R> {
   validateConfig()
 
   const requestUrl = resolve(API_URL, url)
   const params = {
     method: 'PUT',
     headers: {
+      ...headers,
       'Content-Type': 'application/json; charset=utf-8',
+      pragma: 'no-cache',
+      'cache-control': 'no-cache',
     },
-    body: JSON.stringify(payload),
+    body: payload ? JSON.stringify(payload) : undefined,
   }
 
   const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
   if (!response.ok) {
-    const error = await ApiError.readFrom(response)
-    throw error
+    if (response.status >= 400) {
+      const error = await ApiError.readFrom(response)
+      throw error
+    } else {
+      return // nothing
+    }
   }
 
   const data = await response.json()
   return data
 }
 
-export async function del<R = void>(url: string): Promise<R> {
+export async function del<R = void, P = any>(url: string, payload?: P, headers?: HeadersInit): Promise<R> {
   validateConfig()
 
   const requestUrl = resolve(API_URL, url)
   const params = {
     method: 'DELETE',
     headers: {
+      ...headers,
       'Content-Type': 'application/json; charset=utf-8',
+      pragma: 'no-cache',
+      'cache-control': 'no-cache',
     },
+    body: payload ? JSON.stringify(payload) : undefined,
   }
 
   const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
 
-  if (!response.ok) {
-    const error = await ApiError.readFrom(response)
-    throw error
-  }
+  debugger
+  try {
+    if (!response.ok) {
+      if (response.status >= 400) {
+        const error = await ApiError.readFrom(response)
+        throw error
+      } else {
+        return // nothing
+      }
+    }
 
-  const data = await response.json()
-  return data
+    const data = await response.json()
+    return data
+  } catch (err) {
+    debugger
+    throw err
+  }
 }
