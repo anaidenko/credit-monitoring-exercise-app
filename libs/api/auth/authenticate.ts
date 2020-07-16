@@ -1,8 +1,8 @@
 import { post } from '@/libs/api/client'
 import { API_APP_KEY } from '@/libs/api/config'
-import { answerAuthQuestions } from '@/data/mocks/auth-answers'
+import answerAuthQuestions from '@/data/mocks/auth-answers'
 import ApiError from '@/libs/api/error'
-import getAuthQuestions from './getAuthQuestions'
+import getAuthQuestions, { AuthenticationQuestionProvider } from './getAuthQuestions'
 
 export type AuthenticateRequest = {
   appKey: string
@@ -21,18 +21,17 @@ export type AuthenticateResponse = {
 
 export default async function authenticate(data: {
   clientKey: string
-  providers: string[]
+  providers: AuthenticationQuestionProvider[]
 }): Promise<AuthenticateResponse> {
   const { clientKey } = data
 
   const appKey = API_APP_KEY
-  const questions = await getAuthQuestions(data)
-  const answers = answerAuthQuestions(questions)
+  const { questions, provider, authToken } = await getAuthQuestions(data)
+
+  const answers = answerAuthQuestions(questions, provider)
   if (!answers) {
     throw new ApiError('Unable to authenticate')
   }
-
-  const authToken = questions.authToken
 
   const payload: AuthenticateRequest = { appKey, clientKey, authToken, answers }
   const response: AuthenticateResponse = await post('/api/authenticate/v2', payload)

@@ -25,11 +25,15 @@ export default class ApiError<T = any> extends Error {
           message = data.error[0].msg
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      // do nothing
+    }
 
     try {
       message = await response.text()
-    } catch (e) {}
+    } catch (e) {
+      // do nothing
+    }
 
     const error = new ApiError(message)
     error.status = response.status

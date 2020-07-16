@@ -1,13 +1,4 @@
-import {
-  useState,
-  useCallback,
-  FunctionComponent,
-  cloneElement,
-  ReactElement,
-  createContext,
-  useContext,
-  Children,
-} from 'react'
+import { useCallback, FunctionComponent, cloneElement, ReactElement, createContext, useContext, Children } from 'react'
 import cn from 'classnames'
 import OpenCloseIcon from '../public/icons/open-close.svg'
 import useToggle from '@/libs/hooks/use-toggle'
@@ -54,7 +45,7 @@ CollapsibleContext.displayName = 'CollapsibleContext'
 const CollapsibleToggle: FunctionComponent = ({ children }) => {
   const { toggle } = useContext(CollapsibleContext)
   return (
-    <div className="open-close-icon" onClick={(event) => toggle()}>
+    <div className="open-close-icon" onClick={() => toggle()}>
       {children || <OpenCloseIcon />}
     </div>
   )

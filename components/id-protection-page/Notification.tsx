@@ -1,4 +1,4 @@
-import { ReactNode, FunctionComponent, RefObject } from 'react'
+import { ReactNode, FunctionComponent } from 'react'
 import cn from 'classnames'
 
 type Props = {

@@ -2,9 +2,11 @@ import { fetcherFn } from 'swr/dist/types'
 
 const DEFAULT_FETCHER = fetch
 
-let fetcher
+let fetcher: fetcherFn<any>
 
-function useFetcher(initialState: fetcherFn<any> = DEFAULT_FETCHER) {
+type Response = [fetcherFn<any>, (value: fetcherFn<any>) => void]
+
+const useFetcher = (initialState: fetcherFn<any> = DEFAULT_FETCHER): Response => {
   if (initialState) {
     fetcher = initialState
   }

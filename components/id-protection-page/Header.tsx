@@ -7,7 +7,7 @@ import CheckIcon from '../../public/icons/check.svg'
 
 const Header = (): JSX.Element => {
   const [isProtected, setProtected] = useState(false)
-  const toggleProtected = useCallback((event) => setProtected(!isProtected), [isProtected])
+  const toggleProtected = useCallback(() => setProtected(!isProtected), [isProtected])
 
   return (
     <header className="pack-header">

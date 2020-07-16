@@ -1,13 +1,13 @@
-import { useRouter } from 'next/router'
-import { useLocalStorage } from './use-local-storage'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import useLocalStorage from './use-local-storage'
 
 const CLIENT_KEY = 'CLIENT_KEY'
 const DEFAULT_CLIENT_KEY = process.env.NEXT_PUBLIC_API_CLIENT_KEY
 
 type Response = [string, (v: string) => void]
 
-export function useClientKey(): Response {
+function useClientKey(): Response {
   const { query } = useRouter()
   const [clientKey, setClientKey] = useLocalStorage(CLIENT_KEY)
 
@@ -21,3 +21,5 @@ export function useClientKey(): Response {
 
   return [clientKey, setClientKey]
 }
+
+export default useClientKey

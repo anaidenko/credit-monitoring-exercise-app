@@ -2,7 +2,7 @@ import Layout from '@/components/Layout'
 import Header from '@/components/creditlock-page/Header'
 import CreditFreezeCenter from '@/components/creditlock-page/CreditFreezeCenter'
 import FactsSteps from '@/components/creditlock-page/FactsSteps'
-import { useAuthToken } from '@/libs/hooks/use-auth-token'
+import useAuthToken from '@/libs/hooks/use-auth-token'
 
 export const CreditLock = (): JSX.Element => {
   const [token, { error }] = useAuthToken()

@@ -4,14 +4,14 @@ import { API_APP_KEY } from '@/libs/api/config'
 export type AuthenticateQuestionsRequest = {
   appKey: string
   clientKey: string
-  provider1?: string
-  provider2?: string
-  provider3?: string
+  provider1?: AuthenticationQuestionProvider
+  provider2?: AuthenticationQuestionProvider
+  provider3?: AuthenticationQuestionProvider
 }
 
 export type AuthenticateQuestionsResponse = {
   authToken: string
-  provider: string
+  provider: AuthenticationQuestionProvider
   questions: AuthenticateQuestion[]
 }
 
@@ -21,12 +21,17 @@ export type AuthenticateQuestion = {
   answers: AuthenticatePossibleAnswer[]
 }
 
+export type AuthenticationQuestionProvider = 'tui' | 'exp' | 'efx'
+
 export type AuthenticatePossibleAnswer = {
   id: string
   text: string
 }
 
-export default async function getAuthQuestions(data: { clientKey: string; providers: string[] }) {
+export default async function getAuthQuestions(data: {
+  clientKey: string
+  providers: AuthenticationQuestionProvider[]
+}) {
   const { clientKey, providers } = data
   const appKey = API_APP_KEY
   const query: AuthenticateQuestionsRequest = { appKey, clientKey, ...mapAuthProviders(providers) }
@@ -34,7 +39,7 @@ export default async function getAuthQuestions(data: { clientKey: string; provid
   return response
 }
 
-const mapAuthProviders = (providers?: string[]): Record<string, string> => {
+const mapAuthProviders = (providers?: AuthenticationQuestionProvider[]): Record<string, string> => {
   const map: Record<string, string> = providers?.reduce(
     (memo, provider, i) => ({ ...memo, [`provider${i + 1}`]: provider }),
     {}
