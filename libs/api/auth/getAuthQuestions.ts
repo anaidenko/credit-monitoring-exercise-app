@@ -26,7 +26,7 @@ export type AuthenticatePossibleAnswer = {
   text: string
 }
 
-export async function getAuthQuestions(data: { clientKey: string; providers: string[] }) {
+export default async function getAuthQuestions(data: { clientKey: string; providers: string[] }) {
   const { clientKey, providers } = data
   const appKey = API_APP_KEY
   const query: AuthenticateQuestionsRequest = { appKey, clientKey, ...mapAuthProviders(providers) }
