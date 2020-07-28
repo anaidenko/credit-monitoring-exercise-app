@@ -1,5 +1,6 @@
 import { get } from '@/libs/api/client'
 import { USER_TOKEN_HEADER } from '@/libs/constants/api-headers'
+
 import { User } from '../models/User'
 
 export type Request = {

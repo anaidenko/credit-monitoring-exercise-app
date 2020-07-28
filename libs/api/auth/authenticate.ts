@@ -1,7 +1,8 @@
+import answerAuthQuestions from '@/data/mocks/auth-answers'
 import { post } from '@/libs/api/client'
 import { API_APP_KEY } from '@/libs/api/config'
-import answerAuthQuestions from '@/data/mocks/auth-answers'
 import ApiError from '@/libs/api/error'
+
 import getAuthQuestions, { AuthenticationQuestionProvider } from './getAuthQuestions'
 
 export type Request = {

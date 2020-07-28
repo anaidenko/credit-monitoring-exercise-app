@@ -1,18 +1,19 @@
 import { useState, useCallback, useEffect, FunctionComponent } from 'react'
+
 import useSWR, { cache } from 'swr'
 
-import useToggle from '@/libs/hooks/use-toggle'
 import Switch from '@/components/Switch'
-import TransUnionLockHistory from './TransUnionLockHistory'
+import { getEnrollments, createEnrollment, deleteEnrollment } from '@/libs/api/monitoring'
+import { EnrollmentCode } from '@/libs/api/monitoring/getEnrollments'
+import useToggle from '@/libs/hooks/use-toggle'
 import useUserTokens from '@/libs/hooks/use-user-tokens'
 
-import TransUnionLogo from '../../public/icons/transunion-logo.svg'
-import CreditlockUnlockedIcon from '../../public/icons/creditlock-unlocked.svg'
-import CreditlockLockedIcon from '../../public/icons/creditlock-locked.svg'
-import { getEnrollments, createEnrollment, deleteEnrollment } from '@/libs/api/monitoring'
-import InlineError from '../InlineError'
-import { EnrollmentCode } from '@/libs/api/monitoring/getEnrollments'
 import { MonitorEnrollment } from '../../libs/api/monitoring/getEnrollments'
+import CreditlockLockedIcon from '../../public/icons/creditlock-locked.svg'
+import CreditlockUnlockedIcon from '../../public/icons/creditlock-unlocked.svg'
+import TransUnionLogo from '../../public/icons/transunion-logo.svg'
+import InlineError from '../InlineError'
+import TransUnionLockHistory from './TransUnionLockHistory'
 
 type Props = {
   defaultHistorySize?: number
@@ -24,10 +25,8 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
 
   const { clientKey, userToken } = tokens
 
-  const getEnrollmentsKey = tokens.userToken && ['getEnrollments']
-  const { data: enrollments, error } = useSWR(getEnrollmentsKey, () => getEnrollments({ clientKey, userToken }), {
-    errorRetryCount: 1,
-  })
+  const getEnrollmentsKey = tokens.userToken ? ['getEnrollments'] : null
+  const { data: enrollments, error } = useSWR(getEnrollmentsKey, () => getEnrollments({ clientKey, userToken }))
 
   const [showLocked, toggleShowLocked] = useToggle(false)
   const [savingLocked, setSavingLocked] = useState(false)
@@ -40,7 +39,7 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
   }, [showLocked])
 
   const saveEnrollmentKey = savingLocked != savedLocked ? ['saveEnrollment', savingLocked, tokens.userToken] : null
-  const { data: saveLockedResponse, error: saveLockedError } = useSWR(
+  const { error: saveLockedError } = useSWR(
     saveEnrollmentKey,
     async () => {
       cache.delete(saveEnrollmentKey, false)
@@ -59,7 +58,7 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
         setSavedLocked(value)
       }
     },
-    { errorRetryCount: 1, focusThrottleInterval: 0, dedupingInterval: 0 }
+    { revalidateOnFocus: false, dedupingInterval: 0 }
   )
 
   const checkMonitoring = useCallback(() => {
@@ -86,7 +85,7 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
   useEffect(() => {
     const history = enrollments?.filter((x) => x.enrollmentCode === EnrollmentCode.TUICreditLock) || []
     setHistory(history)
-    
+
     const locked = history[0]?.active
     toggleShowLocked(locked)
     setSavingLocked(locked)

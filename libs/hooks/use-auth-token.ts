@@ -1,11 +1,11 @@
 import useSWR from 'swr'
 
-import authenticate from '../api/auth/authenticate'
-import useLocalStorage from './use-local-storage'
-import useClientKey from './use-client-key'
 import { AuthenticationQuestionProvider } from '@/libs/api/auth/getAuthQuestions'
+
+import authenticate from '../api/auth/authenticate'
 import { AUTH_TOKEN, AUTH_CLIENT_KEY } from '../constants/local-storage'
-import useMock from './use-mock'
+import useClientKey from './use-client-key'
+import useLocalStorage from './use-local-storage'
 import useMounted from './use-mounted'
 
 type Response = [string, { error: Error; loading: boolean; mutate: any; revalidate: any }]

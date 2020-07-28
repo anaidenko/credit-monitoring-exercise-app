@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import useClientKey from './use-client-key'
+
 import useAuthToken from './use-auth-token'
+import useClientKey from './use-client-key'
 import useMounted from './use-mounted'
 
 type Tokens = {

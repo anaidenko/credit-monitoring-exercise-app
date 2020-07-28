@@ -1,4 +1,5 @@
 import { FunctionComponent, ReactText } from 'react'
+
 import Head from 'next/head'
 
 type Props = {

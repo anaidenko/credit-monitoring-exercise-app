@@ -1,6 +1,7 @@
 import { FunctionComponent, ReactElement, cloneElement } from 'react'
 
 import Collapsible from '@/components/Collapsible'
+
 import PlusIcon from '../../public/icons/plus.svg'
 
 type Props = {

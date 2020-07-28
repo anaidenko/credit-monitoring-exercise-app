@@ -1,5 +1,6 @@
-import React from 'react'
-import { render } from '../testUtils'
+// import React from 'react'
+
+// import { render } from '../testUtils'
 // import { IdProtection } from '../../pages/id-protection'
 
 describe('Id Protection page', () => {

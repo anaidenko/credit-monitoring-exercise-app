@@ -1,9 +1,10 @@
 import { FunctionComponent } from 'react'
+
 import cn from 'classnames'
 
+import OpenCloseIcon from '../../public/icons/open-close.svg'
 import Collapsible from '../Collapsible'
 import Notification from './Notification'
-import OpenCloseIcon from '../../public/icons/open-close.svg'
 
 const List: FunctionComponent<any> = ({ className, children, ...rest }) => (
   <ul className={cn('lists', className)} {...rest}>

@@ -1,7 +1,8 @@
-import lockHistoryMock from '@/data/mocks/lock-history'
+import monitorEnrollments from '@/data/mocks/monitor-enrollments'
 
 export default {
   instance: async (url: string, params: any) => {
+    // eslint-disable-next-line no-console
     console.log('Mocking request...', params.method, url)
 
     if (url.includes('/api/authenticate/v2') && params.method === 'GET') {
@@ -9,7 +10,7 @@ export default {
     }
 
     if (url.includes('/api/monitoring/v2') && params.method === 'GET') {
-      return success(url, lockHistoryMock)
+      return success(url, monitorEnrollments)
     }
 
     return success(url)
@@ -21,7 +22,7 @@ function success(url: string, data = {}) {
     url,
     ok: true,
     status: 200,
-    statusTest: 'OK',
+    statusText: 'OK',
     headers: {},
     redirected: false,
     json: async () => data,

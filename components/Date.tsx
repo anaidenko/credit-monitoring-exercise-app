@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react'
-import { parseISO, format } from 'date-fns'
+
 import cn from 'classnames'
+import { parseISO, format } from 'date-fns'
 
 type Props = {
   className?: string

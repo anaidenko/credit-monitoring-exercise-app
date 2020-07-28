@@ -1,7 +1,9 @@
-import { fetcherFn } from 'swr/dist/types'
 import { useState, useEffect } from 'react'
+
+import { fetcherFn } from 'swr/dist/types'
+
 import mockFetcher from '@/data/mocks/mock-fetcher'
-import useMock from './use-mock'
+import useFallbackToMock from '@/libs/hooks/use-fallback-to-mock'
 
 const DEFAULT_FETCHER = fetch
 
@@ -12,7 +14,7 @@ type Hook = [fetcherFn<any>, (value: fetcherFn<any>) => void]
 const getFetcher = () => currentFetcher
 
 const useFetcher = (customFetcher?: fetcherFn<any>): Hook => {
-  const [mock] = useMock()
+  const [mock] = useFallbackToMock()
   const [fetcher, setFetcher] = useState(() => customFetcher || currentFetcher || DEFAULT_FETCHER)
 
   useEffect(() => {

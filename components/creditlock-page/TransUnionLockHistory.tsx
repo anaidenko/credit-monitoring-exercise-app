@@ -1,9 +1,10 @@
 import { FunctionComponent } from 'react'
-import Date from '../Date'
+
 import { MonitorEnrollment } from '@/libs/api/monitoring/getEnrollments'
 
 import LockIcon from '../../public/icons/lock.svg'
 import UnlockIcon from '../../public/icons/unlock.svg'
+import Date from '../Date'
 
 type Props = {
   data: MonitorEnrollment[]

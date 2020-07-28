@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react'
-import Title from '../Title'
-import Button from '../Button'
 
-import WarningIcon from '../../public/icons/warning.svg'
 import CheckIcon from '../../public/icons/check.svg'
+import WarningIcon from '../../public/icons/warning.svg'
+import Button from '../Button'
+import Title from '../Title'
 
 const Header = (): JSX.Element => {
   const [isProtected, setProtected] = useState(false)

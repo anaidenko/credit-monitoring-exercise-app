@@ -1,9 +1,8 @@
+import InsuranceGuardIcon from '../../public/icons/insurance-guard.svg'
+import OpenCloseIcon from '../../public/icons/open-close.svg'
+import PrintIcon from '../../public/icons/print.svg'
 import Collapsible from '../Collapsible'
 import Notification from './Notification'
-
-import InsuranceGuardIcon from '../../public/icons/insurance-guard.svg'
-import PrintIcon from '../../public/icons/print.svg'
-import OpenCloseIcon from '../../public/icons/open-close.svg'
 
 const LeftPanel = () => (
   <div className="left-panel">

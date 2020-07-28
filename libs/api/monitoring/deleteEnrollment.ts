@@ -1,5 +1,6 @@
 import { del } from '@/libs/api/client'
 import { USER_TOKEN_HEADER } from '@/libs/constants/api-headers'
+
 import { EnrollmentCode } from './getEnrollments'
 
 export type Request = {

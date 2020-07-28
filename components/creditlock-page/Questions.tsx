@@ -1,6 +1,6 @@
-import QuestionsListItem from './QuestionsListItem'
-import Question from './Question'
 import Answer from './Answer'
+import Question from './Question'
+import QuestionsListItem from './QuestionsListItem'
 
 export const WhatIsCreditLock = (props) => (
   <QuestionsListItem
