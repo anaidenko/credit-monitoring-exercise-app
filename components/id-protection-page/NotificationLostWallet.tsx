@@ -2,8 +2,9 @@ import { FunctionComponent } from 'react'
 
 import cn from 'classnames'
 
+import Collapsible from '@/components/shared/Collapsible'
+
 import OpenCloseIcon from '../../public/icons/open-close.svg'
-import Collapsible from '../Collapsible'
 import Notification from './Notification'
 
 const List: FunctionComponent<any> = ({ className, children, ...rest }) => (

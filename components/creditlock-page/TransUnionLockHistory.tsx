@@ -1,10 +1,10 @@
 import { FunctionComponent } from 'react'
 
+import Date from '@/components/shared/Date'
 import { MonitorEnrollment } from '@/libs/api/monitoring/getEnrollments'
 
 import LockIcon from '../../public/icons/lock.svg'
 import UnlockIcon from '../../public/icons/unlock.svg'
-import Date from '../Date'
 
 type Props = {
   data: MonitorEnrollment[]
@@ -18,7 +18,7 @@ const TransUnionLockHistory: FunctionComponent<Props> = ({ data }: Props) => (
       {data.map((entry, i) => (
         <li className="history-list" key={i}>
           {/* e.g. 2020-03-15 6:00PM GMT +5 */}
-          <Date dateString={entry.enrollmentDate} dateFormat="yyyy-MM-dd K:mma OOO" />{' '}
+          <Date dateString={entry.enrollmentDate || entry.cancellationDate} dateFormat="yyyy-MM-dd K:mma OOO" />{' '}
           <div className="lock-wrapper">
             {entry.active && <LockIcon />}
             {!entry.active && <UnlockIcon />}

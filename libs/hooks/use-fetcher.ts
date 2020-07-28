@@ -9,11 +9,11 @@ const DEFAULT_FETCHER = fetch
 
 let currentFetcher: fetcherFn<any> = DEFAULT_FETCHER
 
-type Hook = [fetcherFn<any>, (value: fetcherFn<any>) => void]
+type HookResult = [fetcherFn<any>, (value: fetcherFn<any>) => void]
 
 const getFetcher = () => currentFetcher
 
-const useFetcher = (customFetcher?: fetcherFn<any>): Hook => {
+const useFetcher = (customFetcher?: fetcherFn<any>): HookResult => {
   const [mock] = useFallbackToMock()
   const [fetcher, setFetcher] = useState(() => customFetcher || currentFetcher || DEFAULT_FETCHER)
 

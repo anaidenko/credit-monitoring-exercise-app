@@ -1,8 +1,8 @@
 import CreditFreezeCenter from '@/components/creditlock-page/CreditFreezeCenter'
 import FactsSteps from '@/components/creditlock-page/FactsSteps'
 import Header from '@/components/creditlock-page/Header'
-import Layout from '@/components/Layout'
-import Loading from '@/components/Loading'
+import BaseLayout from '@/components/layouts/BaseLayout'
+import Loading from '@/components/shared/Loading'
 import useAuthToken from '@/libs/hooks/use-auth-token'
 import useFallbackToMock from '@/libs/hooks/use-fallback-to-mock'
 
@@ -18,11 +18,11 @@ export const CreditLock = ({ mock }: Props): JSX.Element => {
   if (!token) return <Loading />
 
   return (
-    <Layout>
+    <BaseLayout>
       <Header />
       <CreditFreezeCenter />
       <FactsSteps />
-    </Layout>
+    </BaseLayout>
   )
 }
 

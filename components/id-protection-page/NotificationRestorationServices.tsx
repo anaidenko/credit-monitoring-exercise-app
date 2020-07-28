@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react'
 
+import Collapsible from '@/components/shared/Collapsible'
+
 import OpenCloseIcon from '../../public/icons/open-close.svg'
 import TouchIdIcon from '../../public/icons/touch-id.svg'
-import Collapsible from '../Collapsible'
 import Notification from './Notification'
 
 const LeftPanel: FunctionComponent = () => (

@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import useToggle from '@/libs/hooks/use-toggle'
 
-import OpenCloseIcon from '../public/icons/open-close.svg'
+import OpenCloseIcon from '../../public/icons/open-close.svg'
 
 type ChildrenProps = {
   open: boolean

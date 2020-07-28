@@ -23,6 +23,8 @@ const Switch: FunctionComponent<Props> = ({
   uncheckedText,
   onChange,
 }: Props) => {
+  isOn = !!isOn
+
   return (
     <div className="switch-wrapper">
       <input type="checkbox" checked={isOn} onChange={onChange} id={`switch-input`} />

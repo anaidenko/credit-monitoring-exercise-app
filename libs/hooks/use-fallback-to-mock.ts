@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 
 import { API_URL } from '@/libs/api/config'
 
-type Hook = [boolean, (value: boolean) => void]
+type HookResult = [boolean, (value: boolean) => void]
 
-const useFallbackToMock = (value?: boolean): Hook => {
+const useFallbackToMock = (value?: boolean): HookResult => {
   const { query } = useRouter()
   const [mock, setMock] = useState(value)
 

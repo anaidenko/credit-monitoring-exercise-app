@@ -1,6 +1,6 @@
 import Head from 'next/head'
 
-const Layout = ({ children }): JSX.Element => (
+const BaseLayout = ({ children }): JSX.Element => (
   <div>
     <Head>
       <title>Exercise 1</title>
@@ -12,4 +12,4 @@ const Layout = ({ children }): JSX.Element => (
   </div>
 )
 
-export default Layout
+export default BaseLayout

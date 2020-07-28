@@ -1,19 +1,19 @@
-import { useState, useCallback } from 'react'
+import Button from '@/components/shared/Button'
+import Title from '@/components/shared/Title'
 
 import CheckIcon from '../../public/icons/check.svg'
 import WarningIcon from '../../public/icons/warning.svg'
-import Button from '../Button'
-import Title from '../Title'
+import useMonitoringLock from '../monitoring/useMonitoringLock'
+import InlineError from '../shared/InlineError'
 
 const Header = (): JSX.Element => {
-  const [isProtected, setProtected] = useState(false)
-  const toggleProtected = useCallback(() => setProtected(!isProtected), [isProtected])
+  const { locked, toggleLocked, error } = useMonitoringLock()
 
   return (
     <header className="pack-header">
       <Title>My Identity Manager</Title>
 
-      {isProtected ? (
+      {locked === true ? (
         <div className="text-wrapper">
           <span className="text">You have world-class Identity Protection</span>
           <div className="flex-vertical">
@@ -21,7 +21,7 @@ const Header = (): JSX.Element => {
             <span className="active">Active</span>
           </div>
         </div>
-      ) : (
+      ) : locked === false ? (
         <div className="text-wrapper">
           <span className="text">Take back control of your identity for good</span>
           <div className="flex-vertical">
@@ -29,15 +29,23 @@ const Header = (): JSX.Element => {
             <span className="disabled">Currently Disabled</span>
           </div>
         </div>
-      )}
+      ) : null}
 
       <p className="description">
         Millions fall victim to identity theft every year, losing on avg. $375 to fraud. Protect your identity with your
         membership today.
       </p>
-      <Button className={isProtected ? '' : 'primary'} onClick={toggleProtected}>
-        Turn {isProtected ? 'off' : 'on'} ID Protection
-      </Button>
+
+      {locked === true ? (
+        <Button onClick={() => toggleLocked()}>Turn off ID Protection</Button>
+      ) : locked === false ? (
+        <Button className="primary" onClick={() => toggleLocked()}>
+          Turn on ID Protection
+        </Button>
+      ) : null}
+
+      {error && <InlineError message={error.message} />}
+
       <div className="protection">Your world-class protection includes:</div>
 
       <style jsx global>

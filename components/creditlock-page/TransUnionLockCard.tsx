@@ -1,18 +1,15 @@
 import { useState, useCallback, useEffect, FunctionComponent } from 'react'
 
-import useSWR, { cache } from 'swr'
-
-import Switch from '@/components/Switch'
-import { getEnrollments, createEnrollment, deleteEnrollment } from '@/libs/api/monitoring'
+import useMonitoringLock from '@/components/monitoring/useMonitoringLock'
+import InlineError from '@/components/shared/InlineError'
+import Switch from '@/components/shared/Switch'
 import { EnrollmentCode } from '@/libs/api/monitoring/getEnrollments'
-import useToggle from '@/libs/hooks/use-toggle'
-import useUserTokens from '@/libs/hooks/use-user-tokens'
 
 import { MonitorEnrollment } from '../../libs/api/monitoring/getEnrollments'
 import CreditlockLockedIcon from '../../public/icons/creditlock-locked.svg'
 import CreditlockUnlockedIcon from '../../public/icons/creditlock-unlocked.svg'
 import TransUnionLogo from '../../public/icons/transunion-logo.svg'
-import InlineError from '../InlineError'
+import useMonitoringEnrollments from '../monitoring/useMonitoringEnrollments'
 import TransUnionLockHistory from './TransUnionLockHistory'
 
 type Props = {
@@ -21,90 +18,32 @@ type Props = {
 }
 
 const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, showAll }: Props) => {
-  const tokens = useUserTokens()
+  const { enrollments, error: monitoringError } = useMonitoringEnrollments()
+  const { locked, toggleLocked, error: toggleError } = useMonitoringLock()
 
-  const { clientKey, userToken } = tokens
-
-  const getEnrollmentsKey = tokens.userToken ? ['getEnrollments'] : null
-  const { data: enrollments, error } = useSWR(getEnrollmentsKey, () => getEnrollments({ clientKey, userToken }))
-
-  const [showLocked, toggleShowLocked] = useToggle(false)
-  const [savingLocked, setSavingLocked] = useState(false)
-  const [savedLocked, setSavedLocked] = useState(false)
-  const [monitoring, setMonitoring] = useState(false)
-
-  const toggleLocked = useCallback(() => {
-    setSavingLocked(!showLocked)
-    toggleShowLocked()
-  }, [showLocked])
-
-  const saveEnrollmentKey = savingLocked != savedLocked ? ['saveEnrollment', savingLocked, tokens.userToken] : null
-  const { error: saveLockedError } = useSWR(
-    saveEnrollmentKey,
-    async () => {
-      cache.delete(saveEnrollmentKey, false)
-
-      const value = savingLocked
-
-      if (!monitoring) {
-        await createEnrollment({ clientKey, userToken, enrollmentCode: EnrollmentCode.TUIInstantMonitoring })
-      }
-
-      if (value) {
-        await createEnrollment({ clientKey, userToken, enrollmentCode: EnrollmentCode.TUICreditLock })
-        setSavedLocked(value)
-      } else {
-        await deleteEnrollment({ clientKey, userToken, enrollmentCode: EnrollmentCode.TUICreditLock })
-        setSavedLocked(value)
-      }
-    },
-    { revalidateOnFocus: false, dedupingInterval: 0 }
-  )
-
-  const checkMonitoring = useCallback(() => {
-    if (enrollments?.length > 0) {
-      const monitoring = enrollments.some(
-        (x) =>
-          x.active &&
-          (x.enrollmentCode === EnrollmentCode.TUIEnhancedMonitoring ||
-            EnrollmentCode.TUIInstantMonitoring ||
-            EnrollmentCode.TUIStandardMonitoring)
-      )
-      setMonitoring(monitoring)
-    }
-  }, [enrollments])
-
-  useEffect(() => {
-    checkMonitoring()
-  }, [enrollments])
+  const error = monitoringError || toggleError
 
   const [history, setHistory] = useState<MonitorEnrollment[]>([])
   const [historyShowSize, setHistorySize] = useState(defaultHistorySize)
   const [historyShown, setHistoryShown] = useState<MonitorEnrollment[]>([])
 
   useEffect(() => {
-    const history = enrollments?.filter((x) => x.enrollmentCode === EnrollmentCode.TUICreditLock) || []
-    setHistory(history)
-
-    const locked = history[0]?.active
-    toggleShowLocked(locked)
-    setSavingLocked(locked)
-    setSavedLocked(locked)
+    const creditLocks = enrollments?.filter((x) => x.enrollmentCode === EnrollmentCode.TUICreditLock) || []
+    setHistory(creditLocks)
   }, [enrollments])
 
   const showHistory = useCallback(
     (size?: number) => {
-      if (size === undefined || size !== historyShowSize) {
-        setHistorySize(size)
-        setHistoryShown(showAll ? history : history?.slice(0, size))
-      }
+      const data = showAll ? history : history?.slice(0, size)
+      setHistorySize(size)
+      setHistoryShown(data)
     },
     [history, historyShowSize]
   )
 
   useEffect(() => {
     showHistory()
-  }, [enrollments, monitoring])
+  }, [history])
 
   return (
     <section className="center-block">
@@ -113,15 +52,15 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
       </div>
       <div className="middle-panel">
         <Switch
-          isOn={showLocked}
+          isOn={locked}
           variant="primary"
-          handleIcon={showLocked ? <CreditlockLockedIcon /> : <CreditlockUnlockedIcon />}
+          handleIcon={locked ? <CreditlockLockedIcon /> : <CreditlockUnlockedIcon />}
           onChange={() => toggleLocked()}
           checkedText="Locked"
           uncheckedText="Unlocked"
         ></Switch>
 
-        {showLocked ? (
+        {locked ? (
           <>
             <p className="transunion-file">Your TransUnion File is Locked</p>
             <p className="lock-text">Unlock your score to open new accounts under your name</p>
@@ -134,7 +73,7 @@ const TransUnionLockCard: FunctionComponent<Props> = ({ defaultHistorySize = 4, 
         )}
       </div>
 
-      {(error || saveLockedError) && <InlineError message={error?.message || saveLockedError?.message} />}
+      {error && <InlineError message={error.message} />}
 
       {history?.length > 0 && historyShown?.length > 0 && (
         <div>

@@ -23,9 +23,10 @@ const useUserTokens = () => {
   useEffect(() => {
     if (mounted) {
       const mountedTokens = { clientKey, userToken }
-      setTokens({ ...mountedTokens, toArray: () => Object.values(mountedTokens) })
+      const array = Object.values(mountedTokens)
+      setTokens({ ...mountedTokens, toArray: () => array })
     }
-  }, [mounted])
+  }, [mounted, clientKey, userToken])
 
   return tokens
 }

@@ -1,6 +1,6 @@
 import { AuthenticateVerifyAnswers } from '@/libs/api/auth/authenticate'
 import { AuthenticateQuestion, AuthenticationQuestionProvider } from '@/libs/api/auth/getAuthQuestions'
-import { matches, includes } from '@/utils/string-utils'
+import { matches, includes } from '@/utils/string'
 
 export const PREDEFINED_TUI_ANSWERS = {
   'Which of the following is a current or previous employer?': 'IEC',

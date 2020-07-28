@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 
-import Title from '../Title'
+import Title from '@/components/shared/Title'
 
 const Header: FunctionComponent = () => (
   <header className="credit-lock-header">

@@ -4,8 +4,8 @@ import Header from '@/components/id-protection-page/Header'
 import NotificationInsurance from '@/components/id-protection-page/NotificationInsurance'
 import NotificationLostWallet from '@/components/id-protection-page/NotificationLostWallet'
 import NotificationRestorationServices from '@/components/id-protection-page/NotificationRestorationServices'
-import Layout from '@/components/Layout'
-import Loading from '@/components/Loading'
+import BaseLayout from '@/components/layouts/BaseLayout'
+import Loading from '@/components/shared/Loading'
 import useAuthToken from '@/libs/hooks/use-auth-token'
 import useFallbackToMock from '@/libs/hooks/use-fallback-to-mock'
 
@@ -21,12 +21,12 @@ export const IdProtection: FunctionComponent<Props> = ({ mock }: Props): JSX.Ele
   if (!token) return <Loading />
 
   return (
-    <Layout>
+    <BaseLayout>
       <Header />
       <NotificationInsurance />
       <NotificationLostWallet />
       <NotificationRestorationServices />
-    </Layout>
+    </BaseLayout>
   )
 }
 
