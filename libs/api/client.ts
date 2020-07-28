@@ -1,15 +1,14 @@
 import { resolve } from 'url'
+
 import queryString, { ParsedQuery } from 'query-string'
 
-import { getFetcher } from '../hooks/use-fetcher'
 import { API_URL, API_APP_KEY } from '@/libs/api/config'
 import ApiError from '@/libs/api/error'
 
+import { getFetcher } from '../hooks/use-fetcher'
+
 const validateConfig = () => {
-  if (!API_URL) {
-    throw new Error('API not configured')
-  }
-  if (!API_APP_KEY) {
+  if (API_URL && !API_APP_KEY) {
     throw new Error('API application identifier not configured')
   }
 }
@@ -40,7 +39,7 @@ export async function get<R, Q extends ParsedQuery>(url: string, query?: Q, head
     }
   }
 
-  const data = await response.json()
+  const data = await handle(response)
   return data
 }
 
@@ -71,7 +70,7 @@ export async function post<R, P = any>(url: string, payload?: P, headers?: Heade
     }
   }
 
-  const data = await response.json()
+  const data = await handle(response)
   return data
 }
 
@@ -102,7 +101,7 @@ export async function put<R, P = any>(url: string, payload?: P, headers?: Header
     }
   }
 
-  const data = await response.json()
+  const data = await handle(response)
   return data
 }
 
@@ -123,22 +122,25 @@ export async function del<R = void, P = any>(url: string, payload?: P, headers?:
 
   const fetcher = getFetcher()
   const response = await fetcher(requestUrl, params)
+  const data = await handle(response)
+  return data
+}
 
-  debugger
-  try {
-    if (!response.ok) {
-      if (response.status >= 400) {
-        const error = await ApiError.readFrom(response)
-        throw error
-      } else {
-        return // nothing
-      }
+async function handle(response) {
+  if (!response.ok) {
+    if (response.status >= 400) {
+      const error = await ApiError.readFrom(response)
+      throw error
+    } else {
+      return // nothing
     }
-
-    const data = await response.json()
-    return data
-  } catch (err) {
-    debugger
-    throw err
   }
+
+  const data = await response.json().catch((err) => {
+    // eslint-disable-next-line no-console
+    console.log('Failed to parse response', err)
+    return {}
+  })
+
+  return data
 }
