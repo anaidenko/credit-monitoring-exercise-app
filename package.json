@@ -11,8 +11,10 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
-    "format": "prettier --write \"**/*.{js,ts,tsx}\"",
+    "format": "yarn lint-fix; yarn prettier",
+    "prettier": "prettier --write \"**/*.{js,ts,tsx}\"",
     "lint": "eslint . --ext ts --ext tsx --ext js",
+    "lint-fix": "yarn lint --fix",
     "test": "jest",
     "test-all": "yarn lint && yarn type-check && yarn test"
   },
@@ -25,7 +27,7 @@
   "lint-staged": {
     "*.@(ts|tsx)": [
       "yarn lint",
-      "yarn format"
+      "yarn prettier"
     ]
   },
   "dependencies": {
