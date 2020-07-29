@@ -3,8 +3,8 @@ import Button from '@/components/shared/Button'
 import InlineError from '@/components/shared/InlineError'
 import Title from '@/components/shared/Title'
 
-import CheckIcon from '../../../../public/icons/check.svg'
-import WarningIcon from '../../../../public/icons/warning.svg'
+import CheckIcon from '../../../../../public/icons/check.svg'
+import WarningIcon from '../../../../../public/icons/warning.svg'
 
 const Header = (): JSX.Element => {
   const { locked, toggleLocked, error } = useMonitoringLock()

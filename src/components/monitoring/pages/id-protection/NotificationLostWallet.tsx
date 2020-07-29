@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import Collapsible from '@/components/shared/Collapsible'
 
-import OpenCloseIcon from '../../../../public/icons/open-close.svg'
+import OpenCloseIcon from '../../../../../public/icons/open-close.svg'
 import Notification from './Notification'
 
 const List: FunctionComponent<any> = ({ className, children, ...rest }) => (

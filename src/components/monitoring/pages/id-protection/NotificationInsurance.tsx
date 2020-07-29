@@ -1,8 +1,8 @@
 import Collapsible from '@/components/shared/Collapsible'
 
-import InsuranceGuardIcon from '../../../../public/icons/insurance-guard.svg'
-import OpenCloseIcon from '../../../../public/icons/open-close.svg'
-import PrintIcon from '../../../../public/icons/print.svg'
+import InsuranceGuardIcon from '../../../../../public/icons/insurance-guard.svg'
+import OpenCloseIcon from '../../../../../public/icons/open-close.svg'
+import PrintIcon from '../../../../../public/icons/print.svg'
 import Notification from './Notification'
 
 const LeftPanel = () => (
