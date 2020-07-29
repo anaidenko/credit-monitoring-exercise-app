@@ -4,8 +4,8 @@ import Date from '@/components/shared/Date'
 
 import { MonitorEnrollment } from '@/providers/api/monitoring/getEnrollments'
 
-import LockIcon from '../../../../../public/icons/lock.svg'
-import UnlockIcon from '../../../../../public/icons/unlock.svg'
+import LockIcon from '@/public/icons/lock.svg'
+import UnlockIcon from '@/public/icons/unlock.svg'
 
 type Props = {
   data: MonitorEnrollment[]

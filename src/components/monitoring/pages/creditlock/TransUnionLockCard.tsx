@@ -8,9 +8,10 @@ import Switch from '@/components/shared/Switch'
 import { MonitorEnrollment } from '@/providers/api/monitoring/getEnrollments'
 import { EnrollmentCode } from '@/providers/api/monitoring/getEnrollments'
 
-import CreditlockLockedIcon from '../../../../../public/icons/creditlock-locked.svg'
-import CreditlockUnlockedIcon from '../../../../../public/icons/creditlock-unlocked.svg'
-import TransUnionLogo from '../../../../../public/icons/transunion-logo.svg'
+import CreditlockLockedIcon from '@/public/icons/creditlock-locked.svg'
+import CreditlockUnlockedIcon from '@/public/icons/creditlock-unlocked.svg'
+import TransUnionLogo from '@/public/icons/transunion-logo.svg'
+
 import TransUnionLockHistory from './TransUnionLockHistory'
 
 type Props = {

@@ -14,11 +14,13 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "typeRoots": ["src/@types"],
     "paths": {
       "@/components/*": ["components/*"],
       "@/providers/*": ["providers/*"],
       "@/utils/*": ["utils/*"],
-      "@/styles/*": ["styles/*"]
+      "@/styles/*": ["styles/*"],
+      "@/public/*": ["../public/*"]
     }
   },
   "exclude": ["node_modules", ".next", "out"],
