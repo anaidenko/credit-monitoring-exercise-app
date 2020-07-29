@@ -1,11 +1,12 @@
-// import React from 'react'
+import React from 'react'
 
-// import { render } from '../testUtils'
-// import { IdProtection } from '../../pages/id-protection'
+import IdProtection from '@/pages/id-protection'
+
+import { render, withTestRouter } from '../testUtils'
 
 describe('Id Protection page', () => {
   it('matches snapshot', () => {
-    //   const { asFragment } = render(<IdProtection mock={true} />, {})
-    //   expect(asFragment()).toMatchSnapshot()
+    const { asFragment } = render(withTestRouter(<IdProtection mock={true} />, {}))
+    expect(asFragment()).toMatchSnapshot()
   })
 })

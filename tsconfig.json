@@ -17,12 +17,13 @@
     "typeRoots": ["src/@types"],
     "paths": {
       "@/components/*": ["components/*"],
+      "@/pages/*": ["pages/*"],
       "@/providers/*": ["providers/*"],
-      "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
+      "@/utils/*": ["utils/*"],
       "@/public/*": ["../public/*"]
     }
   },
   "exclude": ["node_modules", ".next", "out"],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.js"]
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/**/*.js"]
 }

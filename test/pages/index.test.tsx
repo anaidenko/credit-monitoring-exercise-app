@@ -1,6 +1,7 @@
 import React from 'react'
 
-import { Home } from '../../pages/index'
+import { Home } from '@/pages/index'
+
 import { render } from '../testUtils'
 
 describe('Home page', () => {
