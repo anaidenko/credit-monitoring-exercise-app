@@ -1,8 +1,8 @@
 import { AppProps } from 'next/app'
 import { SWRConfig } from 'swr'
 
-import useFallbackToMock from '@/libs/hooks/use-fallback-to-mock'
-import useFetcher from '@/libs/hooks/use-fetcher'
+import useFallbackToMock from '@/components/hooks/useFallbackToMock'
+import useFetcher from '@/components/hooks/useFetcher'
 
 import '@/styles/index.css'
 

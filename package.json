@@ -11,7 +11,7 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --pretty --noEmit",
-    "format": "yarn lint-fix; yarn prettier",
+    "format": "yarn lint-fix && yarn prettier",
     "prettier": "prettier --write \"**/*.{js,ts,tsx}\"",
     "lint": "eslint . --ext ts --ext tsx --ext js",
     "lint-fix": "yarn lint --fix",

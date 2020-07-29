@@ -1,10 +1,10 @@
-import CreditFreezeCenter from '@/components/creditlock-page/CreditFreezeCenter'
-import FactsSteps from '@/components/creditlock-page/FactsSteps'
-import Header from '@/components/creditlock-page/Header'
+import useAuthToken from '@/components/hooks/useAuthToken'
+import useFallbackToMock from '@/components/hooks/useFallbackToMock'
 import BaseLayout from '@/components/layouts/BaseLayout'
+import CreditFreezeCenter from '@/components/monitoring/pages/creditlock/CreditFreezeCenter'
+import FactsSteps from '@/components/monitoring/pages/creditlock/FactsSteps'
+import Header from '@/components/monitoring/pages/creditlock/Header'
 import Loading from '@/components/shared/Loading'
-import useAuthToken from '@/libs/hooks/use-auth-token'
-import useFallbackToMock from '@/libs/hooks/use-fallback-to-mock'
 
 type Props = {
   mock?: boolean

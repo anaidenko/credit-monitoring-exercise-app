@@ -60,6 +60,16 @@
             "position": "before"
           },
           {
+            "pattern": "@/components/**",
+            "group": "parent",
+            "position": "before"
+          },
+          {
+            "pattern": "@/providers/**",
+            "group": "parent",
+            "position": "before"
+          },
+          {
             "pattern": "@/**",
             "group": "parent",
             "position": "before"

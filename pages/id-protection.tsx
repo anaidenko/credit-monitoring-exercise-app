@@ -1,13 +1,13 @@
 import { FunctionComponent } from 'react'
 
-import Header from '@/components/id-protection-page/Header'
-import NotificationInsurance from '@/components/id-protection-page/NotificationInsurance'
-import NotificationLostWallet from '@/components/id-protection-page/NotificationLostWallet'
-import NotificationRestorationServices from '@/components/id-protection-page/NotificationRestorationServices'
+import useAuthToken from '@/components/hooks/useAuthToken'
+import useFallbackToMock from '@/components/hooks/useFallbackToMock'
 import BaseLayout from '@/components/layouts/BaseLayout'
+import Header from '@/components/monitoring/pages/id-protection/Header'
+import NotificationInsurance from '@/components/monitoring/pages/id-protection/NotificationInsurance'
+import NotificationLostWallet from '@/components/monitoring/pages/id-protection/NotificationLostWallet'
+import NotificationRestorationServices from '@/components/monitoring/pages/id-protection/NotificationRestorationServices'
 import Loading from '@/components/shared/Loading'
-import useAuthToken from '@/libs/hooks/use-auth-token'
-import useFallbackToMock from '@/libs/hooks/use-fallback-to-mock'
 
 type Props = {
   mock?: boolean

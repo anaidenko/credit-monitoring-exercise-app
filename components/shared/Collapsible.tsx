@@ -2,7 +2,7 @@ import { useCallback, FunctionComponent, cloneElement, ReactElement, createConte
 
 import cn from 'classnames'
 
-import useToggle from '@/libs/hooks/use-toggle'
+import useToggle from '@/components/hooks/useToggle'
 
 import OpenCloseIcon from '../../public/icons/open-close.svg'
 

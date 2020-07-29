@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react'
 
-import useToggle from '@/libs/hooks/use-toggle'
+import useToggle from '@/components/hooks/useToggle'
 
 type Props = {
   message: string

@@ -2,7 +2,7 @@ import { FunctionComponent, MouseEventHandler } from 'react'
 
 import cn from 'classnames'
 
-import { Variant } from '@/libs/types'
+import { Variant } from '@/providers/types'
 
 type Props = {
   className?: string
