@@ -1,0 +1,14 @@
+{
+  "prettier.configPath": "./.prettierrc",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "files.exclude": {
+    ".next": true,
+    ".git": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "public/": true
+  },
+  "scss.scannerExclude": ["**/.git", "**/node_modules"]
+}
